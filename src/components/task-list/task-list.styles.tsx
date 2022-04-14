@@ -17,7 +17,6 @@ export const TaskListContainer = styled.div`
 
 export const EmptyTaskListPlaceHolder = styled.div`
 	margin: auto;
-	color: var(--color-primary);
 	font-size: 2rem;
 	font-weight: bold;
 	text-align: center;
