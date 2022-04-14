@@ -1,9 +1,9 @@
+import { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router';
-import { Suspense } from 'react';
 
 import Spinner from './components/spinner/spinner.component';
-import Navigation from './routes/navigation/navigation.component';
-import Clock from './routes/home/home.component';
+const Navigation = lazy(() => import('./routes/navigation/navigation.component'));
+const Clock = lazy(() => import('./routes/home/home.component'));
 
 function App() {
 	return (
