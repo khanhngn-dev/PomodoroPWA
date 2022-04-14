@@ -12,13 +12,4 @@ export const DialWrapper = styled.input`
 	line-height: 80px;
 	border-radius: 10px;
 	color: var(--color-primary);
-	transition: 1s ease all;
-	transform-origin: center;
-	transform: scale(1);
-	opacity: 1;
-
-	&.changing {
-		opacity: 0;
-		transform: scale(0.75);
-	}
 `;
