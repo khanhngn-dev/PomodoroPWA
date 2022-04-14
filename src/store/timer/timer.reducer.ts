@@ -23,7 +23,7 @@ export type TimerState = {
 export const INITIAL_STATE: TimerState = {
 	break: false,
 	isCounting: false,
-	currentTime: 0,
+	currentTime: 1800,
 	defaultTime: 1800,
 	breakTime: 900,
 	interval: null,
