@@ -18,6 +18,12 @@ const Counter = () => {
 	const [tenthSec, setTenthSec] = useState(0);
 	const [sec, setSec] = useState(0);
 
+	useEffect(() => {
+		document.title = isCounting
+			? `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`
+			: 'Pomodoro';
+	}, [minutes, seconds, isCounting]);
+
 	// Initialization + Changes
 	useEffect(() => {
 		setTenthMin(Math.floor(minutes / 10));
