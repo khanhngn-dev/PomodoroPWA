@@ -9,8 +9,13 @@ export const DialContainer = styled.div`
 export const DialDivider = styled.span`
 	font-size: 3rem;
 	font-weight: bold;
-	color: var(--color-primary);
 	opacity: 1;
+	&.work {
+		color: var(--color-primary);
+	}
+	&.break {
+		color: var(--color-accent);
+	}
 	&.blip {
 		animation-name: blip;
 		animation-duration: 1s;

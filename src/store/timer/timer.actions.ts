@@ -7,7 +7,6 @@ import {
 	withMatcher,
 } from '../../utils/reducer/reducers.utils';
 // import { RootState } from '../store';
-import { TimerState } from './timer.reducer';
 import { TIMER_TYPES } from './timer.types';
 
 export type SetIsCounting = ActionWithPayload<TIMER_TYPES.SET_IS_COUNTING, boolean>;
@@ -55,26 +54,20 @@ export const asyncTimer = () => (dispatch: any, getState: any) => {
 	}
 };
 
-export type ResetTimer = ActionWithPayload<TIMER_TYPES.RESET_TIMER, TimerState>;
+export type ResetTimer = ActionWithPayload<TIMER_TYPES.RESET_TIMER, number>;
 
 export const resetTimer = withMatcher(
-	(initTimer: TimerState): ResetTimer => createAction(TIMER_TYPES.RESET_TIMER, initTimer)
+	(time: number): ResetTimer => createAction(TIMER_TYPES.RESET_TIMER, time)
 );
 
 export const resetAsync = () => (dispatch: any, getState: any) => {
-	const {
-		timer: { interval, defaultTime },
-	} = getState();
-	clearInterval(interval);
+	const { timer } = getState();
+	const newTime = timer.break ? timer.breakTime : timer.defaultTime;
+	console.log(newTime);
+	clearInterval(timer.interval);
 	dispatch(onTimerStop(null));
-	dispatch(
-		resetTimer({
-			isCounting: false,
-			currentTime: defaultTime,
-			interval: null,
-			defaultTime,
-		})
-	);
+	dispatch(setIsCounting(false));
+	dispatch(resetTimer(newTime));
 };
 
 export type SetStartTime = ActionWithPayload<TIMER_TYPES.SET_START_TIME, number>;
@@ -87,4 +80,16 @@ export type SetDefaultTime = ActionWithPayload<TIMER_TYPES.SET_DEFAULT_TIME, num
 
 export const setDefaultTime = withMatcher(
 	(time: number): SetDefaultTime => createAction(TIMER_TYPES.SET_DEFAULT_TIME, time)
+);
+
+export type SetBreakTime = ActionWithPayload<TIMER_TYPES.SET_BREAK_TIME, number>;
+
+export const setBreakTime = withMatcher(
+	(time: number): SetBreakTime => createAction(TIMER_TYPES.SET_BREAK_TIME, time)
+);
+
+export type SetTimerMode = ActionWithPayload<TIMER_TYPES.SET_TIMER_MODE, boolean>;
+
+export const setTimerMode = withMatcher(
+	(mode: boolean): SetTimerMode => createAction(TIMER_TYPES.SET_TIMER_MODE, mode)
 );

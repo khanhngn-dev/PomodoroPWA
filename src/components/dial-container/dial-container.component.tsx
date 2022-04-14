@@ -1,7 +1,11 @@
 import { useEffect, ChangeEvent, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDefaultTime, setStartTime } from '../../store/timer/timer.actions';
-import { selectCurrentTime, selectIsCounting } from '../../store/timer/timer.selectors';
+import { setBreakTime, setDefaultTime, setStartTime } from '../../store/timer/timer.actions';
+import {
+	selectCurrentTime,
+	selectIsCounting,
+	selectTimerMode,
+} from '../../store/timer/timer.selectors';
 
 import Dial from '../dial/dial.component';
 import { DialContainer, DialDivider } from './dial-container.styles';
@@ -10,6 +14,7 @@ const Counter = () => {
 	const dispatch = useDispatch();
 	const currentTime = useSelector(selectCurrentTime);
 	const isCounting = useSelector(selectIsCounting);
+	const timerMode = useSelector(selectTimerMode);
 	const minutes = useMemo(() => Math.floor(currentTime / 60), [currentTime]);
 	const seconds = useMemo(() => currentTime % 60, [currentTime]);
 
@@ -56,7 +61,7 @@ const Counter = () => {
 				break;
 		}
 		dispatch(setStartTime(time));
-		dispatch(setDefaultTime(time));
+		timerMode ? dispatch(setBreakTime(time)) : dispatch(setDefaultTime(time));
 	};
 
 	return (
@@ -67,6 +72,7 @@ const Counter = () => {
 				onChange={changeHandler}
 				value={tenthMin}
 				maxLength={1}
+				timerMode={timerMode}
 			/>
 			<Dial
 				dialType={`minutes ${minutes % 10 === min ? 'idle' : 'changing'}`}
@@ -74,14 +80,18 @@ const Counter = () => {
 				value={min}
 				name='min'
 				maxLength={1}
+				timerMode={timerMode}
 			/>
-			<DialDivider className={`${isCounting ? 'blip' : ''}`}>:</DialDivider>
+			<DialDivider className={`${isCounting ? 'blip' : ''} ${timerMode ? 'break' : 'work'}`}>
+				:
+			</DialDivider>
 			<Dial
 				dialType={`seconds ${Math.floor(seconds / 10) === tenthSec ? 'idle' : 'changing'}`}
 				name='tenth-sec'
 				onChange={changeHandler}
 				value={tenthSec}
 				maxLength={1}
+				timerMode={timerMode}
 			/>
 			<Dial
 				dialType={`seconds ${seconds % 10 === sec ? 'idle' : 'changing'}`}
@@ -89,6 +99,7 @@ const Counter = () => {
 				onChange={changeHandler}
 				value={sec}
 				maxLength={1}
+				timerMode={timerMode}
 			/>
 		</DialContainer>
 	);

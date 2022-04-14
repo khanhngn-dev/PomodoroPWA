@@ -11,5 +11,4 @@ export const DialWrapper = styled.input`
 	text-align: center;
 	line-height: 80px;
 	border-radius: 10px;
-	color: var(--color-primary);
 `;

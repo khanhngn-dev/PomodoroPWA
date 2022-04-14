@@ -2,7 +2,7 @@
 :root {
 	--color-primary: #ff4a44;
 	--color-secondary: #ff908c;
-	--color-accent: #008218;
+	--color-accent: #00a91f;
 	--color-grey: rgb(32, 30, 30);
 	--color-lighter-grey: rgb(55, 52, 52);
 }
@@ -19,4 +19,12 @@ body {
 
 ::-webkit-scrollbar {
 	display: none;
+}
+
+.break {
+	color: var(--color-accent);
+}
+
+.work {
+	color: var(--color-primary);
 }
