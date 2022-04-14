@@ -32,10 +32,12 @@ const ItemForm: FC<FormHTMLAttributes<HTMLFormElement>> = () => {
 		setTaskName(event.target.value);
 	};
 	return (
-		<FormContainer onSubmit={handleSubmit}>
-			<ItemInput value={taskName} onChange={handleChange} placeholder='Kick Trong Nhan...' />
-			<Button>Add Task</Button>
-		</FormContainer>
+		<>
+			<FormContainer onSubmit={handleSubmit}>
+				<ItemInput value={taskName} onChange={handleChange} placeholder='Kick Trong Nhan...' />
+				<Button style={{ width: '500px' }}>Add Task</Button>
+			</FormContainer>
+		</>
 	);
 };
 export default ItemForm;

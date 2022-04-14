@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 :root {
 	--color-primary: #ff4a44;
 	--color-secondary: #ff908c;
@@ -9,6 +10,7 @@
 * {
 	box-sizing: border-box;
 	scrollbar-width: none;
+	font-family: 'Nunito', sans-serif;
 }
 
 body {

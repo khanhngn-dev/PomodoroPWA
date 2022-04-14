@@ -7,7 +7,7 @@ import Counter from '../../components/dial-container/dial-container.component';
 import Button from '../../components/button/button.component';
 import { Home, ButtonContainer } from './home.styles';
 import TaskList from '../../components/task-list/task-list.component';
-import ItemForm from '../../components/itemForm/item-form.component';
+import ItemForm from '../../components/item-form/item-form.component';
 
 const Clock = () => {
 	const isCounting = useSelector(selectIsCounting);
