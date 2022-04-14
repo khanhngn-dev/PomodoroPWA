@@ -24,14 +24,15 @@ const Clock = () => {
 	const timerMode = useSelector(selectTimerMode);
 	const dispatch = useDispatch();
 
+	// DO NOT ADD timerMode OR DOOMSDAY
 	useEffect(() => {
 		if (currentTime <= 0) {
 			setTimeout(() => {
-				dispatch(resetAsync());
 				dispatch(setTimerMode(!timerMode));
+				dispatch(resetAsync());
 			}, 500);
 		}
-	}, [currentTime, timerMode, dispatch]);
+	}, [currentTime, dispatch]);
 
 	const startStopHandler = useCallback(() => {
 		dispatch(setIsCounting(!isCounting));

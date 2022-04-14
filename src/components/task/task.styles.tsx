@@ -19,6 +19,9 @@ export const TaskContainer = styled.div`
 	font-weight: bold;
 	letter-spacing: 1px;
 	/* border: 3px solid var(--color-secondary); */
+	&.break {
+		background-color: var(--color-accent);
+	}
 `;
 
 export const TaskDateContainer = styled.span`

@@ -1,14 +1,16 @@
 import { FC, FormHTMLAttributes, FormEventHandler, useState, ChangeEventHandler } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItemToList } from '../../store/list/list.actions';
 
 import { FormContainer } from './item-form.styles';
 import ItemInput from '../item-input/item-input.component';
 import Button from '../button/button.component';
+import { selectTimerMode } from '../../store/timer/timer.selectors';
 
 const ItemForm: FC<FormHTMLAttributes<HTMLFormElement>> = () => {
-	const [taskName, setTaskName] = useState('');
 	const dispatch = useDispatch();
+	const [taskName, setTaskName] = useState('');
+	const timerMode = useSelector(selectTimerMode);
 
 	const clearInput = () => setTaskName('');
 
@@ -34,7 +36,9 @@ const ItemForm: FC<FormHTMLAttributes<HTMLFormElement>> = () => {
 	return (
 		<FormContainer onSubmit={handleSubmit}>
 			<ItemInput value={taskName} onChange={handleChange} placeholder='Kick Trong Nhan...' />
-			<Button style={{ width: '500px' }}>Add Task</Button>
+			<Button timerMode={timerMode} style={{ width: '500px' }}>
+				Add Task
+			</Button>
 		</FormContainer>
 	);
 };

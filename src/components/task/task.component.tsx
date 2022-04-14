@@ -1,15 +1,17 @@
 import { FC, InputHTMLAttributes, ChangeEventHandler, useState, memo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeItemFromList, setCompleteItem } from '../../store/list/list.actions';
+import { createDate, checkItem, deleteItem } from '../../utils/reducer/list.utils/list.utils';
+import { selectListItems } from '../../store/list/list.selectors';
+import { selectTimerMode } from '../../store/timer/timer.selectors';
+
+import { ReactComponent as CrossSVG } from '../../assets/x-svgrepo-com.svg';
 import {
 	TaskNameContainer,
 	TaskDateContainer,
 	TaskContainer,
 	DeleteTaskContainer,
 } from './task.styles';
-import { ReactComponent as CrossSVG } from '../../assets/x-svgrepo-com.svg';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectListItems } from '../../store/list/list.selectors';
-import { removeItemFromList, setCompleteItem } from '../../store/list/list.actions';
-import { createDate, checkItem, deleteItem } from '../../utils/reducer/list.utils/list.utils';
 
 export type ListProps = {
 	index: number;
@@ -22,6 +24,7 @@ const Task: FC<ListProps> = memo(({ index, taskName, completedAt, complete, ...o
 	const [checked, setChecked] = useState(complete);
 	const [completeDate, setCompleteDate] = useState(completedAt);
 	const items = useSelector(selectListItems);
+	const timerMode = useSelector(selectTimerMode);
 	const dispatch = useDispatch();
 
 	const onChangeHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -33,10 +36,9 @@ const Task: FC<ListProps> = memo(({ index, taskName, completedAt, complete, ...o
 	const onClickHandler = () => dispatch(removeItemFromList(deleteItem(items, index)));
 
 	return (
-		<TaskContainer>
+		<TaskContainer className={`${timerMode ? 'break' : 'work'}`}>
 			<TaskNameContainer>{taskName}</TaskNameContainer>
 			<input
-				style={{ margin: '0 20px' }}
 				type='checkbox'
 				checked={checked}
 				name={taskName}

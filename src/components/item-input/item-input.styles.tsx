@@ -13,12 +13,14 @@ export const ItemInputContainer = styled.input`
 	&:focus {
 		border-color: var(--color-primary);
 	}
+	&.break {
+		border-color: var(--color-accent);
+	}
 `;
 
 export const ItemInputLabel = styled.label`
 	font-size: 1.5rem;
 	font-weight: bold;
-	color: var(--color-primary);
 	letter-spacing: 1px;
 `;
 
