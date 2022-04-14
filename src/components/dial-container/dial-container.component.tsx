@@ -25,9 +25,11 @@ const Counter = () => {
 
 	useEffect(() => {
 		document.title = isCounting
-			? `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`
+			? `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds} - ${
+					timerMode ? 'Taking a break off' : 'Working'
+			  }`
 			: 'Pomodoro';
-	}, [minutes, seconds, isCounting]);
+	}, [minutes, seconds, isCounting, timerMode]);
 
 	// Initialization + Changes
 	useEffect(() => {
