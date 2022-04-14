@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from 'react-router';
+import { Suspense } from 'react';
+
+import Spinner from './components/spinner/spinner.component';
+import Navigation from './routes/navigation/navigation.component';
+import Clock from './routes/home/home.component';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<Suspense fallback={<Spinner />}>
+			<Routes>
+				<Route path='/' element={<Navigation />}>
+					<Route index element={<Clock />} />
+				</Route>
+			</Routes>
+		</Suspense>
+	);
 }
 
 export default App;
