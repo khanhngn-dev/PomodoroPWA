@@ -26,10 +26,12 @@ const Clock = () => {
 
 	useEffect(() => {
 		if (currentTime <= 0) {
-			dispatch(setTimerMode(!timerMode));
-			setTimeout(() => dispatch(resetAsync()), 500);
+			setTimeout(() => {
+				dispatch(resetAsync());
+				dispatch(setTimerMode(!timerMode));
+			}, 500);
 		}
-	}, [currentTime, dispatch]);
+	}, [currentTime, timerMode, dispatch]);
 
 	const startStopHandler = useCallback(() => {
 		dispatch(setIsCounting(!isCounting));
