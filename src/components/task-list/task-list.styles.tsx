@@ -8,8 +8,9 @@ export const TaskListContainer = styled.div`
 	border-radius: 20px;
 	margin: 20px;
 	padding: 20px 0;
-	overflow-y: auto;
+	overflow: auto;
 	height: 500px;
+	max-height: 500px;
 	width: 500px;
 	gap: 20px;
 	/* border: 3px solid var(--color-primary); */
