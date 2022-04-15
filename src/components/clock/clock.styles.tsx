@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const DialContainer = styled.div`
+export const ClockContainer = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;

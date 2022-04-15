@@ -1,20 +1,31 @@
 import { useEffect, ChangeEvent, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setBreakTime, setDefaultTime, setStartTime } from '../../store/timer/timer.actions';
+import {
+	setBreakTime,
+	setDefaultTime,
+	setStartTime,
+	setTimerMode,
+	resetAsync,
+} from '../../store/timer/timer.actions';
 import {
 	selectCurrentTime,
 	selectIsCounting,
 	selectTimerMode,
+	selectDefaultTime,
+	selectBreakTime,
 } from '../../store/timer/timer.selectors';
+import { sendNotification } from '../../utils/reducer/list.utils/list.utils';
 
 import Dial from '../dial/dial.component';
-import { DialContainer, DialDivider } from './dial-container.styles';
+import { ClockContainer, DialDivider } from './clock.styles';
 
-const Counter = () => {
+const Clock = () => {
 	const dispatch = useDispatch();
 	const currentTime = useSelector(selectCurrentTime);
 	const isCounting = useSelector(selectIsCounting);
 	const timerMode = useSelector(selectTimerMode);
+	const defTime = useSelector(selectDefaultTime);
+	const breakTime = useSelector(selectBreakTime);
 	const minutes = useMemo(() => Math.floor(currentTime / 60), [currentTime]);
 	const seconds = useMemo(() => currentTime % 60, [currentTime]);
 
@@ -22,6 +33,17 @@ const Counter = () => {
 	const [min, setMin] = useState(0);
 	const [tenthSec, setTenthSec] = useState(0);
 	const [sec, setSec] = useState(0);
+
+	// DO NOT ADD timerMode OR DOOMSDAY
+	useEffect(() => {
+		if (currentTime <= 0) {
+			setTimeout(() => {
+				dispatch(setTimerMode(!timerMode));
+				dispatch(resetAsync());
+				sendNotification(timerMode, !timerMode ? breakTime : defTime);
+			}, 500);
+		}
+	}, [currentTime, dispatch]);
 
 	useEffect(() => {
 		document.title = isCounting
@@ -67,13 +89,14 @@ const Counter = () => {
 	};
 
 	return (
-		<DialContainer>
+		<ClockContainer>
 			<Dial
 				dialType={`minutes ${Math.floor(minutes / 10) === tenthMin ? 'idle' : 'changing'}`}
 				name='tenth-min'
 				onChange={changeHandler}
 				value={tenthMin}
-				maxLength={1}
+				min={0}
+				max={9}
 				timerMode={timerMode}
 			/>
 			<Dial
@@ -81,7 +104,8 @@ const Counter = () => {
 				onChange={changeHandler}
 				value={min}
 				name='min'
-				maxLength={1}
+				min={0}
+				max={9}
 				timerMode={timerMode}
 			/>
 			<DialDivider className={`${isCounting ? 'blip' : ''} ${timerMode ? 'break' : 'work'}`}>
@@ -92,7 +116,8 @@ const Counter = () => {
 				name='tenth-sec'
 				onChange={changeHandler}
 				value={tenthSec}
-				maxLength={1}
+				min={0}
+				max={9}
 				timerMode={timerMode}
 			/>
 			<Dial
@@ -100,11 +125,12 @@ const Counter = () => {
 				name='sec'
 				onChange={changeHandler}
 				value={sec}
-				maxLength={1}
+				min={0}
+				max={9}
 				timerMode={timerMode}
 			/>
-		</DialContainer>
+		</ClockContainer>
 	);
 };
 
-export default Counter;
+export default Clock;
