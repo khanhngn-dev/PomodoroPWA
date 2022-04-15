@@ -2,9 +2,10 @@ import { AnyAction } from 'redux';
 import { addItemToList, removeItemFromList, setCompleteItem } from './list.actions';
 
 export type ListItem = {
-	taskName: string;
-	complete: boolean;
-	completedAt: string;
+	readonly taskName: string;
+	readonly complete: boolean;
+	readonly completedAt: string;
+	readonly description: string;
 };
 
 export type ListType = {
@@ -14,14 +15,17 @@ export type ListType = {
 
 const defaultListItems: ListItem[] = [
 	{
-		taskName: 'Kick Trong Nhan',
-		complete: false,
-		completedAt: 'Not Complete',
+		taskName: 'Complete learning TS',
+		complete: true,
+		completedAt: '13:51 14/04/2022',
+		description: 'Finish reading the TS handbook and start working on some projects',
 	},
 	{
-		taskName: 'Choi voi TS',
-		complete: true,
-		completedAt: '13:51 - 14/04/2022',
+		taskName: 'Complete Pomodoro Clock using TS',
+		complete: false,
+		completedAt: 'Not Complete',
+		description:
+			'Added more features: Authentication and Firestore to store information across multiple devices',
 	},
 ];
 
