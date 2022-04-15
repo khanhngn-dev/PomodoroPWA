@@ -10,3 +10,5 @@ export const selectDefaultTime = createSelector([selectTimerReducer], (timer) =>
 export const selectIsCounting = createSelector([selectTimerReducer], (timer) => timer.isCounting);
 
 export const selectTimerMode = createSelector([selectTimerReducer], (timer) => timer.break);
+
+export const selectBreakTime = createSelector([selectTimerReducer], (timer) => timer.breakTime);
