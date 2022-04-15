@@ -11,6 +11,7 @@ export const StyledButton = styled.button`
 	letter-spacing: 1.5px;
 	/* border: 3px solid var(--color-secondary); */
 	border: none;
+	transition: 0.25s ease all;
 	&:hover {
 		background-color: var(--color-lighter-grey);
 		cursor: pointer;

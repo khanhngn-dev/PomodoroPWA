@@ -10,6 +10,7 @@ export const DialDivider = styled.span`
 	font-size: 3rem;
 	font-weight: bold;
 	opacity: 1;
+	transition: 0.25s ease all;
 	&.work {
 		color: var(--color-primary);
 	}
