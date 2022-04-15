@@ -3,11 +3,15 @@ import { useSelector } from 'react-redux';
 import { selectTimerMode } from '../../store/timer/timer.selectors';
 import { ItemInputContainer, ItemInputLabel, ItemInputWithLabel } from './item-input.styles';
 
-const ItemInput: FC<InputHTMLAttributes<HTMLInputElement>> = ({ ...others }) => {
+type ItemInputProps = {
+	label: string;
+} & InputHTMLAttributes<HTMLInputElement>;
+
+const ItemInput: FC<ItemInputProps> = ({ label, ...others }) => {
 	const timerMode = useSelector(selectTimerMode);
 	return (
 		<ItemInputWithLabel>
-			<ItemInputLabel className={`${timerMode ? 'break' : 'work'}`}>Add a task name</ItemInputLabel>
+			<ItemInputLabel className={`${timerMode ? 'break' : 'work'}`}>{label}</ItemInputLabel>
 			<ItemInputContainer
 				className={`${timerMode ? 'break' : 'work'}`}
 				type='text'
