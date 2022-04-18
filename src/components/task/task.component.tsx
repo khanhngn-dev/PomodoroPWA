@@ -1,8 +1,6 @@
-import { FC, InputHTMLAttributes, ChangeEventHandler, useState, memo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { removeItemFromList, setCompleteItem } from '../../store/list/list.actions';
-import { createDate, checkItem, deleteItem } from '../../utils/reducer/list.utils/list.utils';
-import { selectListItems } from '../../store/list/list.selectors';
+import { FC, ChangeEvent, memo, MouseEvent } from 'react';
+import { useSelector } from 'react-redux';
+
 import { selectTimerMode } from '../../store/timer/timer.selectors';
 
 import { ReactComponent as CrossSVG } from '../../assets/x-svgrepo-com.svg';
@@ -22,23 +20,13 @@ export type ListProps = {
 	complete: boolean;
 	completedAt: string;
 	description: string;
-} & InputHTMLAttributes<HTMLInputElement>;
+	onChecked: (event: ChangeEvent<HTMLInputElement>, index: number) => void;
+	onDelete: (event: MouseEvent<HTMLSpanElement>, index: number) => void;
+};
 
 const Task: FC<ListProps> = memo(
-	({ index, taskName, completedAt, complete, description, ...others }) => {
-		const [checked, setChecked] = useState(complete);
-		const [completeDate, setCompleteDate] = useState(completedAt);
-		const items = useSelector(selectListItems);
+	({ index, taskName, completedAt, complete, description, onChecked, onDelete }) => {
 		const timerMode = useSelector(selectTimerMode);
-		const dispatch = useDispatch();
-
-		const onChangeHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
-			setChecked(!checked);
-			!checked ? setCompleteDate(createDate()) : setCompleteDate('Not Complete');
-			dispatch(setCompleteItem(checkItem(items, index, event)));
-		};
-
-		const onClickHandler = () => dispatch(removeItemFromList(deleteItem(items, index)));
 
 		return (
 			<TaskContainer className={`${timerMode ? 'break' : 'work'}`}>
@@ -47,13 +35,11 @@ const Task: FC<ListProps> = memo(
 					<CheckBoxContainer
 						className={`${timerMode ? 'break' : 'work'}`}
 						type='checkbox'
-						checked={checked}
-						name={taskName}
-						onChange={onChangeHandler}
-						{...others}
+						checked={complete}
+						onChange={(e) => onChecked(e, index)}
 					/>
-					<TaskDateContainer>{completeDate}</TaskDateContainer>
-					<DeleteTaskContainer onClick={onClickHandler}>
+					<TaskDateContainer>{completedAt}</TaskDateContainer>
+					<DeleteTaskContainer onClick={(e) => onDelete(e, index)}>
 						<CrossSVG />
 					</DeleteTaskContainer>
 				</TaskSummary>

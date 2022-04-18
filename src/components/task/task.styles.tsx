@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const TaskContainer = styled.details`
+export const TaskContainer = styled.div`
 	border-radius: 20px;
 	width: 92%;
 	background-color: var(--color-primary);
@@ -12,6 +12,7 @@ export const TaskContainer = styled.details`
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-direction: column;
 	transition: 0.25s ease all;
 	&.break {
 		background-color: var(--color-accent);
@@ -27,15 +28,17 @@ export const TaskSummary = styled.summary`
 	justify-content: space-around;
 	font-weight: bold;
 	min-height: 80px;
-	&:hover {
+	width: 100%;
+	/* &:hover {
 		cursor: pointer;
-	}
+	} */
 	/* border: 3px solid var(--color-secondary); */
 `;
 
 export const TaskNameContainer = styled.span`
 	flex: 3;
 	text-align: center;
+	word-wrap: break-word;
 `;
 
 export const TaskDateContainer = styled.span`
@@ -50,6 +53,7 @@ export const DeleteTaskContainer = styled.span`
 	transition: 0.25s ease all;
 	&:hover {
 		color: darkred;
+		cursor: pointer;
 	}
 `;
 
@@ -60,22 +64,22 @@ export const CheckBoxContainer = styled.input`
 	position: relative;
 	&:hover {
 		cursor: pointer;
-		&::after {
+		&::before {
 			background-color: #c7c7c7;
 		}
 		&.break {
-			&:checked::after {
+			&:checked::before {
 				background-color: darkred;
 			}
 		}
 		/* background-color: #017399; */
 		&.work {
-			&:checked::after {
+			&:checked::before {
 				background-color: #007e00;
 			}
 		}
 	}
-	&::after {
+	&::before {
 		content: '';
 		position: absolute;
 		top: 50%;
@@ -89,13 +93,13 @@ export const CheckBoxContainer = styled.input`
 		transition: 0.25s ease all;
 	}
 	&.work {
-		&:checked::after {
+		&:checked::before {
 			background-color: var(--color-accent);
 		}
 		/* background-color: #00a5dc; */
 	}
 	&.break {
-		&:checked::after {
+		&:checked::before {
 			background-color: var(--color-primary);
 		}
 	}
@@ -108,4 +112,5 @@ export const DetailContainer = styled.div`
 	width: 98%;
 	padding: 20px;
 	background-color: var(--color-secondary);
+	transition: 0.25s ease all;
 `;

@@ -1,17 +1,15 @@
-import { ChangeEvent } from 'react';
 import { ListItem } from '../../../store/list/list.reducer';
 
 export const checkItem = (
 	items: ListItem[],
 	index: number,
-	event: ChangeEvent<HTMLInputElement>
 ): ListItem[] =>
 	items.map((item, i) =>
 		i === index
 			? {
 					...item,
-					complete: event.target.checked,
-					completedAt: event.target.checked ? createDate() : 'Not Complete',
+					complete: !item.complete,
+					completedAt: !item.complete ? createDate() : 'Not Complete',
 			  }
 			: item
 	);
@@ -29,7 +27,7 @@ export const createDate = (): string => {
 };
 
 export const deleteItem = (items: ListItem[], index: number): ListItem[] =>
-	items.filter((item, i) => i !== index);
+	items.filter((_, i) => i !== index);
 
 export const sendNotification = (timerMode: boolean, time: number) => {
 	let min = Math.floor(time / 60);
