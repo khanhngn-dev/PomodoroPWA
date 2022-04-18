@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledButton = styled.button`
+export const BaseButton = styled.button`
 	margin: 20px;
 	padding: 20px;
 	border-radius: 20px;
@@ -16,5 +16,15 @@ export const StyledButton = styled.button`
 		background-color: var(--color-lighter-grey);
 		cursor: pointer;
 		border-color: var(--color-primary);
+	}
+`;
+
+export const FormButton = styled(BaseButton)`
+	width: 96%;
+	margin: 10px auto;
+	color: white;
+	background-color: var(--color-secondary);
+	&:hover {
+		background-color: var(--color-primary);
 	}
 `;
