@@ -7,7 +7,7 @@ export const ItemInputContainer = styled.input`
 	color: var(--color-primary);
 	outline: none;
 	border: 3px solid var(--color-primary);
-	width: 60%;
+	width: 90%;
 	background-color: var(--color-grey);
 	letter-spacing: 1px;
 	transition: 0.25s ease all;
@@ -33,4 +33,5 @@ export const ItemInputWithLabel = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	width: 100%;
 `;

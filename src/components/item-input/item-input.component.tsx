@@ -7,16 +7,19 @@ type ItemInputProps = {
 	label: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-const ItemInput: FC<ItemInputProps> = ({ label, ...others }) => {
+const ItemInput: FC<ItemInputProps> = ({ label, name, ...others }) => {
 	const timerMode = useSelector(selectTimerMode);
 	return (
 		<ItemInputWithLabel>
-			<ItemInputLabel className={`${timerMode ? 'break' : 'work'}`}>{label}</ItemInputLabel>
+			<ItemInputLabel htmlFor={name} className={`${timerMode ? 'break' : 'work'}`}>
+				{label}
+			</ItemInputLabel>
 			<ItemInputContainer
+				id={name}
 				className={`${timerMode ? 'break' : 'work'}`}
 				type='text'
-				name='taskName'
 				disabled={timerMode}
+				name={name}
 				{...others}
 			/>
 		</ItemInputWithLabel>

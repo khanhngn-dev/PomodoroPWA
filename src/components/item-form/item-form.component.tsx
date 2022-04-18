@@ -1,68 +1,61 @@
-import { FC, FormHTMLAttributes, FormEventHandler, useState, ChangeEventHandler } from 'react';
+import { FC, FormHTMLAttributes } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useFormik } from 'formik';
+
 import { addItemToList } from '../../store/list/list.actions';
 import { selectTimerMode } from '../../store/timer/timer.selectors';
 
 import ItemInput from '../item-input/item-input.component';
-import Button from '../button/button.component';
-import { FormContainer, InputContainer } from './item-form.styles';
-
-const defaultFormField: { taskName: string; description: string } = {
-	taskName: '',
-	description: '',
-};
+import { FormContainer, ItemButton } from './item-form.styles';
 
 const ItemForm: FC<FormHTMLAttributes<HTMLFormElement>> = () => {
 	const dispatch = useDispatch();
-	const [formFields, setFormFields] = useState(defaultFormField);
 	const timerMode = useSelector(selectTimerMode);
-	const { taskName, description } = formFields;
-
-	const clearInput = () => setFormFields(defaultFormField);
-
-	const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
-		event.preventDefault();
-		dispatch(
-			addItemToList({
-				taskName,
-				complete: false,
-				completedAt: 'Not Complete',
-				description,
-			})
-		);
-		clearInput();
-	};
-
-	const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-		const { name, value } = event.target;
-		setFormFields({ ...formFields, [name]: value });
-	};
+	const formik = useFormik({
+		initialValues: {
+			taskName: '',
+			description: '',
+		},
+		onSubmit: (values, { resetForm }) => {
+			dispatch(
+				addItemToList({
+					taskName: values.taskName,
+					complete: false,
+					completedAt: 'Not Complete',
+					description: values.description,
+				})
+			);
+			resetForm();
+		},
+		onReset: (values) => {
+			values.taskName = '';
+			values.description = '';
+		},
+	});
 
 	return (
-		<FormContainer onSubmit={handleSubmit}>
-			<InputContainer>
-				<ItemInput
-					required
-					name='taskName'
-					label={`Add a task name`}
-					value={taskName}
-					onChange={handleChange}
-					placeholder='Complete Pomodoro...'
-					maxLength={30}
-				/>
-				<ItemInput
-					required
-					name='description'
-					label={`Add some descriptions`}
-					value={description}
-					onChange={handleChange}
-					placeholder='Add more features...'
-					maxLength={100}
-				/>
-			</InputContainer>
-			<Button timerMode={timerMode} style={{ width: '500px' }}>
+		<FormContainer onSubmit={formik.handleSubmit}>
+			<ItemInput
+				required
+				name='taskName'
+				label={`Add a task name`}
+				value={formik.values.taskName}
+				onChange={formik.handleChange}
+				placeholder='Complete Pomodoro...'
+				maxLength={30}
+			/>
+			<ItemInput
+				required
+				name='description'
+				label={`Add some descriptions`}
+				value={formik.values.description}
+				onChange={formik.handleChange}
+				placeholder='Add more features...'
+				maxLength={100}
+			/>
+			<ItemButton buttonType='submit' type='submit' className={`${timerMode ? 'break' : 'work'}`}>
 				Add Task
-			</Button>
+			</ItemButton>
 		</FormContainer>
 	);
 };
