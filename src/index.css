@@ -17,6 +17,10 @@ body {
 	background-color: black;
 }
 
+a {
+	text-decoration: none;
+}
+
 ::-webkit-scrollbar {
 	display: none;
 }
