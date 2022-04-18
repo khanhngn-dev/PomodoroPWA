@@ -21,6 +21,7 @@ const persistConfig: ExtendedPersistConfig = {
 	key: 'root',
 	storage,
 	whitelist: ['timer', 'list'],
+	blacklist: ['user'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

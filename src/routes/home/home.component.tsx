@@ -25,12 +25,12 @@ const Home = () => {
 
 	return (
 		<HomeContainer>
-			<Clock></Clock>
+			<Clock />
 			<ButtonContainer className='button-container'>
-				<Button timerMode={timerMode} onClick={startStopHandler}>{`${
+				<Button buttonType='base' timerMode={timerMode} onClick={startStopHandler}>{`${
 					isCounting ? 'Stop' : 'Start'
 				} Counter`}</Button>
-				<Button timerMode={timerMode} onClick={resetHandler}>
+				<Button buttonType='base' timerMode={timerMode} onClick={resetHandler}>
 					Reset Counter
 				</Button>
 			</ButtonContainer>
