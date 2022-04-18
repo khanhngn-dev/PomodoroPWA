@@ -23,6 +23,7 @@ const ItemForm: FC<FormHTMLAttributes<HTMLFormElement>> = () => {
 					complete: false,
 					completedAt: 'Not Complete',
 					description: values.description,
+					openDesc: false,
 				})
 			);
 			resetForm();

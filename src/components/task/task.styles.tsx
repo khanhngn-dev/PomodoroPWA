@@ -22,16 +22,16 @@ export const TaskContainer = styled.div`
 	}
 `;
 
-export const TaskSummary = styled.summary`
+export const TaskSummary = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
 	font-weight: bold;
 	min-height: 80px;
 	width: 100%;
-	/* &:hover {
+	&:hover {
 		cursor: pointer;
-	} */
+	}
 	/* border: 3px solid var(--color-secondary); */
 `;
 
@@ -39,6 +39,7 @@ export const TaskNameContainer = styled.span`
 	flex: 3;
 	text-align: center;
 	word-wrap: break-word;
+	max-width: 200px;
 `;
 
 export const TaskDateContainer = styled.span`

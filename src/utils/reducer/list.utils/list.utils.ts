@@ -1,15 +1,22 @@
 import { ListItem } from '../../../store/list/list.reducer';
 
-export const checkItem = (
-	items: ListItem[],
-	index: number,
-): ListItem[] =>
+export const checkItem = (items: ListItem[], index: number): ListItem[] =>
 	items.map((item, i) =>
 		i === index
 			? {
 					...item,
 					complete: !item.complete,
 					completedAt: !item.complete ? createDate() : 'Not Complete',
+			  }
+			: item
+	);
+
+export const toggleItem = (items: ListItem[], index: number): ListItem[] =>
+	items.map((item, i) =>
+		i === index
+			? {
+					...item,
+					openDesc: !item.openDesc,
 			  }
 			: item
 	);
