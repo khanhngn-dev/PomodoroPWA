@@ -63,7 +63,6 @@ export const resetTimer = withMatcher(
 export const resetAsync = () => (dispatch: any, getState: any) => {
 	const { timer } = getState();
 	const newTime = timer.break ? timer.breakTime : timer.defaultTime;
-	console.log(newTime);
 	clearInterval(timer.interval);
 	dispatch(onTimerStop(null));
 	dispatch(setIsCounting(false));

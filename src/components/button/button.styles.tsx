@@ -7,7 +7,7 @@ export const BaseButton = styled.button`
 	background-color: var(--color-grey);
 	font-weight: bold;
 	font-size: 1.2rem;
-	width: max-content;
+	width: 166px;
 	letter-spacing: 1.5px;
 	/* border: 3px solid var(--color-secondary); */
 	border: none;

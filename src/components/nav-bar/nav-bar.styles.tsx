@@ -11,7 +11,8 @@ export const LogoContainer = styled.span`
 `;
 
 export const NavBarContainer = styled.div`
-	padding: 10px;
+	width: 100vw;
+	padding: 20px 26px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;

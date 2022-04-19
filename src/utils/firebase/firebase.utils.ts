@@ -4,8 +4,10 @@ import {
 	getAuth,
 	signInWithEmailAndPassword,
 	signOut,
+	User,
 } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, setDoc, QueryDocumentSnapshot } from 'firebase/firestore';
+import { defaultListItems, ListItem, ListType } from '../../store/list/list.reducer';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyDT5Gnc3-qh1v_wDzknuLUqYcQI-ACTZhM',
@@ -18,7 +20,7 @@ const firebaseConfig = {
 };
 
 export const app = initializeApp(firebaseConfig);
-export const firestore = getFirestore(app);
+export const db = getFirestore(app);
 export const auth = getAuth(app);
 
 export const createUserFromEmailAndPassword = async (email: string, password: string) =>
@@ -28,3 +30,41 @@ export const signOutUserAsync = async () => signOut(auth);
 
 export const signInUserWithEmailAndPassWord = async (email: string, password: string) =>
 	signInWithEmailAndPassword(auth, email, password);
+
+export const createUserDocument = async (
+	user: User | null
+): Promise<QueryDocumentSnapshot<ListType> | undefined> => {
+	if (!user) return;
+	const itemsRef = doc(db, '/users', user.uid);
+	const itemsSnapshot = await getDoc(itemsRef);
+	if (!itemsSnapshot.exists()) {
+		try {
+			setDoc(itemsRef, {
+				items: defaultListItems,
+			});
+		} catch (error) {
+			console.error(error);
+		}
+	}
+	return itemsSnapshot as QueryDocumentSnapshot<ListType>;
+};
+
+export const fetchUserDocument = async (user: User | null): Promise<ListType | undefined> => {
+	if (!user) return;
+	const itemsRef = doc(db, '/users', user.uid);
+	const itemSnapshot = await getDoc(itemsRef);
+	return itemSnapshot.data() as ListType;
+};
+
+export const updateUserDocument = async (
+	user: User | null,
+	items: ListItem[]
+): Promise<undefined> => {
+	if (!user) return;
+	const itemsRef = doc(db, '/users', user.uid);
+	try {
+		setDoc(itemsRef, { items });
+	} catch (error) {
+		console.error(error);
+	}
+};

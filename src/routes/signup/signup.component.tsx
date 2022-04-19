@@ -21,7 +21,6 @@ const SignUp = () => {
 	const error = useSelector(selectUserError);
 
 	const handleSubmit = (values: FormTypes, resetForm: any) => {
-		console.log(values);
 		dispatch(signUp(values.email, values.password, values.displayName));
 		resetForm();
 	};

@@ -1,10 +1,12 @@
 import { USER_TYPES } from './user.types';
 import { ActionWithPayload, createAction, withMatcher } from '../../utils/reducer/reducers.utils';
 import { AuthError, User } from 'firebase/auth';
+import { fetchUserList } from '../list/list.actions';
 import {
 	createUserFromEmailAndPassword,
 	signOutUserAsync,
 	signInUserWithEmailAndPassWord,
+	createUserDocument,
 } from '../../utils/firebase/firebase.utils';
 
 type SetCurrentUser = ActionWithPayload<USER_TYPES.SET_CURRENT_USER, User | null>;
@@ -12,6 +14,11 @@ type SetCurrentUser = ActionWithPayload<USER_TYPES.SET_CURRENT_USER, User | null
 export const setCurrentUser = withMatcher(
 	(user: User | null): SetCurrentUser => createAction(USER_TYPES.SET_CURRENT_USER, user)
 );
+
+export const setCurrentUserAsync = (user: User | null) => async (dispatch: any, getState: any) => {
+	dispatch(setCurrentUser(user));
+	dispatch(fetchUserList(user));
+};
 
 type SignUpFailed = ActionWithPayload<USER_TYPES.SIGN_UP_FAILED, AuthError>;
 
@@ -24,7 +31,8 @@ export const signUp =
 	async (dispatch: any, getState: any) => {
 		try {
 			const { user } = await createUserFromEmailAndPassword(email, password);
-			dispatch(setCurrentUser(user));
+			await createUserDocument(user);
+			dispatch(setCurrentUserAsync(user));
 		} catch (error) {
 			dispatch(signUpFailed(error as AuthError));
 		}
@@ -39,7 +47,7 @@ export const signInFailed = withMatcher(
 export const signIn = (email: string, password: string) => async (dispatch: any, getState: any) => {
 	try {
 		const { user } = await signInUserWithEmailAndPassWord(email, password);
-		dispatch(setCurrentUser(user));
+		dispatch(setCurrentUserAsync(user));
 	} catch (error) {
 		dispatch(signUpFailed(error as AuthError));
 	}

@@ -4,6 +4,8 @@ export const ClockContainer = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	width: 90vw;
+	max-width: 500px;
 `;
 
 export const DialDivider = styled.span`

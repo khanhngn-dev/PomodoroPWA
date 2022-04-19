@@ -15,19 +15,20 @@ export const SignUpWrapper = styled.div`
 	flex-direction: column;
 	width: 60vw;
 	padding: 20px;
-	margin: 40px auto;
+	margin: 20px auto;
 	border-radius: 20px;
 	background-color: var(--color-grey);
 	color: var(--color-primary);
 	letter-spacing: 1px;
 	@media (max-width: 768px) {
 		width: 90vw;
+		padding: 12px;
 	}
 `;
 
 export const ErrorWrapper = styled.div`
 	width: 96%;
-	margin: 20px auto;
+	margin: 10px auto;
 	padding: 10px 20px;
 	text-align: center;
 	letter-spacing: 1px;

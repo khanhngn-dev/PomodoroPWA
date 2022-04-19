@@ -9,9 +9,9 @@ export const TaskListContainer = styled.div`
 	margin: 20px;
 	padding: 20px 0;
 	overflow: auto;
-	height: 500px;
 	max-height: 500px;
-	width: 500px;
+	width: 90%;
+	max-width: 500px;
 	gap: 20px;
 	/* border: 3px solid var(--color-primary); */
 `;

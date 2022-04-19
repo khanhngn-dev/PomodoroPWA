@@ -2,7 +2,7 @@ import { FC, FormHTMLAttributes } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 
-import { addItemToList } from '../../store/list/list.actions';
+import { addItemToListAsync } from '../../store/list/list.actions';
 import { selectTimerMode } from '../../store/timer/timer.selectors';
 
 import ItemInput from '../item-input/item-input.component';
@@ -18,7 +18,7 @@ const ItemForm: FC<FormHTMLAttributes<HTMLFormElement>> = () => {
 		},
 		onSubmit: (values, { resetForm }) => {
 			dispatch(
-				addItemToList({
+				addItemToListAsync({
 					taskName: values.taskName,
 					complete: false,
 					completedAt: 'Not Complete',

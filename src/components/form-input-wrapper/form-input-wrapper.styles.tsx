@@ -19,7 +19,7 @@ export const FormInput = styled.input`
 	}
 	&:focus ~ label,
 	&:not(:placeholder-shown) ~ label {
-		top: -20px;
+		top: -16px;
 		transform: scale(1.5);
 		border-color: var(--color-secondary);
 	}
@@ -30,7 +30,7 @@ export const FormLabel = styled.label`
 	top: 38px;
 	left: 22px;
 	transition: 0.25s ease all;
-	font-size: 1rem;
+	font-size: 0.8rem;
 	font-weight: bold;
 	letter-spacing: 1px;
 	transform-origin: left;

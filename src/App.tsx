@@ -4,8 +4,9 @@ import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router';
 
 import Spinner from './components/spinner/spinner.component';
-import { setCurrentUser } from './store/user/user.action';
+import { setCurrentUserAsync } from './store/user/user.action';
 import { auth } from './utils/firebase/firebase.utils';
+
 const Navigation = lazy(() => import('./routes/navigation/navigation.component'));
 const Home = lazy(() => import('./routes/home/home.component'));
 const SignIn = lazy(() => import('./routes/signin/signin.component'));
@@ -16,11 +17,11 @@ function App() {
 
 	useEffect(() => {
 		const unsub = onAuthStateChanged(auth, (user) => {
-			dispatch(setCurrentUser(user));
+			dispatch(setCurrentUserAsync(user));
 			unsub();
 		});
 	}, [dispatch]);
-	
+
 	return (
 		<Suspense fallback={<Spinner />}>
 			<Routes>

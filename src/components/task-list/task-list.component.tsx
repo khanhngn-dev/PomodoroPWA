@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectListItems } from '../../store/list/list.selectors';
 
 import { selectTimerMode } from '../../store/timer/timer.selectors';
-import { removeItemFromList, setCompleteItem, toggleDetailed } from '../../store/list/list.actions';
+import {
+	removeItemFromListAsync,
+	setCompleteItemAsync,
+	toggleDetailed,
+} from '../../store/list/list.actions';
 import { checkItem, deleteItem, toggleItem } from '../../utils/reducer/list.utils/list.utils';
 
 import Task from '../task/task.component';
@@ -16,12 +20,12 @@ const TaskList = () => {
 	const timerMode = useSelector(selectTimerMode);
 
 	const onCheckedHandler = (event: ChangeEvent<HTMLInputElement>, index: number) => {
-		dispatch(setCompleteItem(checkItem(listItems, index)));
+		dispatch(setCompleteItemAsync(checkItem(listItems, index)));
 	};
 
 	const onDeleteHandler = (event: MouseEvent<HTMLSpanElement>, index: number) => {
 		event.stopPropagation();
-		dispatch(removeItemFromList(deleteItem(listItems, index)));
+		dispatch(removeItemFromListAsync(deleteItem(listItems, index)));
 	};
 
 	const onOpenHandler = (event: MouseEvent<HTMLDivElement>, index: number) => {
@@ -30,7 +34,7 @@ const TaskList = () => {
 
 	return (
 		<TaskListContainer>
-			{listItems.length ? (
+			{listItems?.length ? (
 				listItems.map((item, index) => (
 					<Task
 						key={index}

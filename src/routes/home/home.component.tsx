@@ -29,9 +29,9 @@ const Home = () => {
 			<ButtonContainer className='button-container'>
 				<Button buttonType='base' timerMode={timerMode} onClick={startStopHandler}>{`${
 					isCounting ? 'Stop' : 'Start'
-				} Counter`}</Button>
+				}`}</Button>
 				<Button buttonType='base' timerMode={timerMode} onClick={resetHandler}>
-					Reset Counter
+					Reset
 				</Button>
 			</ButtonContainer>
 			<TaskList />

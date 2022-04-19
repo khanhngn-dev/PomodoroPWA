@@ -12,4 +12,7 @@ export const DialWrapper = styled.input`
 	line-height: 80px;
 	border-radius: 10px;
 	transition: 0.25s ease all;
+	@media (max-width: 768px) {
+		margin: 12px;
+	}
 `;

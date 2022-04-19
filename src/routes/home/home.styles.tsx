@@ -9,9 +9,14 @@ export const HomeContainer = styled.div`
 	justify-content: center;
 	border-radius: 20px;
 	width: min-content;
+	width: 100vw;
 `;
 
 export const ButtonContainer = styled.div`
 	display: flex;
 	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	width: 90vw;
+	max-width: 500px;
 `;

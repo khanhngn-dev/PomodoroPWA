@@ -1,5 +1,11 @@
 import { AnyAction } from 'redux';
-import { addItemToList, removeItemFromList, setCompleteItem, toggleDetailed } from './list.actions';
+import {
+	addItemToList,
+	removeItemFromList,
+	setCompleteItem,
+	toggleDetailed,
+	updateList,
+} from './list.actions';
 
 export type ListItem = {
 	readonly taskName: string;
@@ -14,11 +20,11 @@ export type ListType = {
 	readonly items: ListItem[];
 };
 
-const defaultListItems: ListItem[] = [
+export const defaultListItems: ListItem[] = [
 	{
 		taskName: 'Complete learning TS',
 		complete: true,
-		completedAt: '13:51 14/04/2022',
+		completedAt: '13:51 14/04/22',
 		description: 'Finish reading the TS handbook and start working on some projects',
 		openDesc: false,
 	},
@@ -57,6 +63,12 @@ export const listReducer = (state = INITIAL_STATE, action: AnyAction) => {
 		};
 	}
 	if (toggleDetailed.match(action)) {
+		return {
+			...state,
+			items: action.payload,
+		};
+	}
+	if (updateList.match(action)) {
 		return {
 			...state,
 			items: action.payload,
