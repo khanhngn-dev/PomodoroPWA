@@ -1,5 +1,15 @@
 import styled from 'styled-components';
 
+export const DetailContainer = styled.div`
+	margin: auto;
+	border-radius: 20px;
+	border: 2px dashed white;
+	width: 98%;
+	padding: 20px;
+	background-color: var(--color-secondary);
+	transition: 0.25s ease all;
+`;
+
 export const TaskContainer = styled.div`
 	border-radius: 20px;
 	width: 92%;
@@ -16,7 +26,7 @@ export const TaskContainer = styled.div`
 	transition: 0.25s ease all;
 	&.break {
 		background-color: var(--color-accent);
-		div {
+		${DetailContainer} {
 			background-color: darkgreen;
 		}
 	}
@@ -106,12 +116,3 @@ export const CheckBoxContainer = styled.input`
 	}
 `;
 
-export const DetailContainer = styled.div`
-	margin: auto;
-	border-radius: 20px;
-	border: 2px dashed white;
-	width: 98%;
-	padding: 20px;
-	background-color: var(--color-secondary);
-	transition: 0.25s ease all;
-`;
