@@ -4,7 +4,6 @@ import {
 	onTimerStart,
 	setIsCounting,
 	onTimerStop,
-	resetTimer,
 	setStartTime,
 	setDefaultTime,
 	setTimerMode,
@@ -36,7 +35,7 @@ export const timerReducer = (state = INITIAL_STATE, action: AnyAction) => {
 			isCounting: action.payload,
 		};
 	}
-	if (onTimerStart.match(action)) {
+	if (onTimerStart.match(action) || onTimerStop.match(action)) {
 		return {
 			...state,
 			interval: action.payload,
@@ -46,18 +45,6 @@ export const timerReducer = (state = INITIAL_STATE, action: AnyAction) => {
 		return {
 			...state,
 			currentTime: state.currentTime - 1,
-		};
-	}
-	if (onTimerStop.match(action)) {
-		return {
-			...state,
-			interval: action.payload,
-		};
-	}
-	if (resetTimer.match(action)) {
-		return {
-			...state,
-			currentTime: action.payload,
 		};
 	}
 	if (setStartTime.match(action)) {

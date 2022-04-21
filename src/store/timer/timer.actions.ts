@@ -78,19 +78,13 @@ export const asyncTimer = () => (dispatch: any, getState: any) => {
 	}
 };
 
-export type ResetTimer = ActionWithPayload<TIMER_TYPES.RESET_TIMER, number>;
-
-export const resetTimer = withMatcher(
-	(time: number): ResetTimer => createAction(TIMER_TYPES.RESET_TIMER, time)
-);
-
 export const resetAsync = () => (dispatch: any, getState: any) => {
 	const { timer } = getState();
 	const newTime = timer.break ? timer.breakTime : timer.defaultTime;
 	clearInterval(timer.interval);
 	dispatch(onTimerStop(null));
 	dispatch(setIsCounting(false));
-	dispatch(resetTimer(newTime));
+	dispatch(setStartTime(newTime));
 	document.title = 'Pomodoro';
 };
 
@@ -143,8 +137,9 @@ export const fetchTimerSettingsAsync =
 		if (!clockSetting) return;
 		const { defaultTime, breakTime } = clockSetting;
 		const {
-			timer: { timerMode },
+			timer
 		} = getState();
+		const timerMode = timer.break;
 		dispatch(setBreakTime(breakTime));
 		dispatch(setDefaultTime(defaultTime));
 		timerMode ? dispatch(setStartTime(breakTime)) : dispatch(setStartTime(defaultTime));
