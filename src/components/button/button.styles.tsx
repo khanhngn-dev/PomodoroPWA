@@ -28,3 +28,22 @@ export const FormButton = styled(BaseButton)`
 		background-color: var(--color-primary);
 	}
 `;
+
+export const FilterButton = styled(BaseButton)`
+	width: 40%;
+	margin: 5px;
+	color: white;
+	font-size: 0.9rem;
+	&.work {
+		background-color: var(--color-secondary);
+		&:hover {
+			background-color: var(--color-primary);
+		}
+	}
+	&.break {
+		background-color: var(--color-darker-accent);
+		&:hover {
+			background-color: var(--color-accent);
+		}
+	}
+`;
