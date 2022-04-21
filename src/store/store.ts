@@ -15,6 +15,7 @@ declare global {
 
 export type ExtendedPersistConfig = PersistConfig<RootState> & {
 	whitelist: (keyof RootState)[];
+	blacklist: (keyof RootState)[];
 };
 
 const persistConfig: ExtendedPersistConfig = {
