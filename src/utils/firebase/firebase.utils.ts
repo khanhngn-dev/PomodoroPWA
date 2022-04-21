@@ -16,7 +16,7 @@ import {
 	QuerySnapshot,
 	getDoc,
 } from 'firebase/firestore';
-import { defaultListItems, ListItem } from '../../store/list/list.reducer';
+import { ListItem } from '../../store/list/list.reducer';
 import { INITIAL_STATE } from '../../store/timer/timer.reducer';
 
 const firebaseConfig = {
@@ -43,7 +43,8 @@ export const signInUserWithEmailAndPassWord = async (email: string, password: st
 
 export const createUserDocument = async (
 	user: User | null,
-	displayName: string
+	displayName: string,
+	items: ListItem[]
 ): Promise<QuerySnapshot<ListItem[]> | undefined> => {
 	if (!user) return;
 	const itemsRef = collection(db, `/users/${user.uid}/list`);
@@ -52,19 +53,19 @@ export const createUserDocument = async (
 
 	try {
 		if (itemsSnapshot.empty) {
-			defaultListItems.forEach((item) => {
+			items.forEach(async (item) => {
 				const itemRef = doc(itemsRef, item.id);
-				setDoc(itemRef, item);
+				await setDoc(itemRef, item);
 			});
 		}
 		const infoRef = doc(settingsRef, 'info');
 		if (!(await getDoc(infoRef)).exists()) {
-			setDoc(infoRef, { displayName });
+			await setDoc(infoRef, { displayName });
 		}
 		const clockRef = doc(settingsRef, 'clock');
 		if (!(await getDoc(clockRef)).exists()) {
 			const { breakTime, defaultTime } = INITIAL_STATE;
-			setDoc(clockRef, { breakTime, defaultTime });
+			await setDoc(clockRef, { breakTime, defaultTime });
 		}
 	} catch (error) {
 		console.error(error);
@@ -86,7 +87,7 @@ export const updateUserTask = async (
 	if (!user || !item) return;
 	const itemRef = doc(db, `/users/${user.uid}/list`, item.id);
 	try {
-		setDoc(itemRef, item);
+		await setDoc(itemRef, { ...item, openDesc: false });
 	} catch (error) {
 		console.error(error);
 	}

@@ -30,9 +30,12 @@ export const signUpFailed = withMatcher(
 
 export const signUp = (email: string, password: string) => async (dispatch: any, getState: any) => {
 	try {
+		const {
+			list: { items },
+		} = getState();
 		const { user } = await createUserFromEmailAndPassword(email, password);
-		await createUserDocument(user, email);
-		// dispatch(setCurrentUserAsync(user));
+		await createUserDocument(user, email, items);
+		dispatch(setCurrentUserAsync(user));
 	} catch (error) {
 		dispatch(signUpFailed(error as AuthError));
 	}
@@ -46,9 +49,12 @@ export const signInFailed = withMatcher(
 
 export const signIn = (email: string, password: string) => async (dispatch: any, getState: any) => {
 	try {
+		const {
+			list: { items },
+		} = getState();
 		const { user } = await signInUserWithEmailAndPassWord(email, password);
-		await createUserDocument(user, email);
-		// dispatch(setCurrentUserAsync(user));
+		await createUserDocument(user, email, items);
+		dispatch(setCurrentUserAsync(user));
 	} catch (error) {
 		dispatch(signUpFailed(error as AuthError));
 	}
