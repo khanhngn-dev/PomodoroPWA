@@ -3,8 +3,10 @@
 	--color-primary: #ff4a44;
 	--color-secondary: #ee312a;
 	--color-accent: #00a91f;
+	--color-darker-accent: #008900;
 	--color-grey: rgb(32, 30, 30);
 	--color-lighter-grey: rgb(55, 52, 52);
+	font-size: 15px;
 }
 
 * {
@@ -33,5 +35,5 @@ a {
 }
 
 .work {
-	color: var(--color-primary);
+	color: var(--color-secondary);
 }
