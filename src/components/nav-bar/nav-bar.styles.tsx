@@ -38,3 +38,7 @@ export const LinkWrapper = styled(Link)`
 		background-color: var(--color-lighter-grey);
 	}
 `;
+
+export const DisplayNameWrapper = styled.span`
+	color: var(--color-primary);
+`;
