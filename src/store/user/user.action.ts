@@ -8,6 +8,7 @@ import {
 	signInUserWithEmailAndPassWord,
 	createUserDocument,
 } from '../../utils/firebase/firebase.utils';
+import { fetchTimerSettingsAsync } from '../timer/timer.actions';
 
 type SetCurrentUser = ActionWithPayload<USER_TYPES.SET_CURRENT_USER, User | null>;
 
@@ -18,6 +19,7 @@ export const setCurrentUser = withMatcher(
 export const setCurrentUserAsync = (user: User | null) => async (dispatch: any, getState: any) => {
 	dispatch(setCurrentUser(user));
 	dispatch(fetchUserList(user));
+	dispatch(fetchTimerSettingsAsync(user));
 };
 
 type SignUpFailed = ActionWithPayload<USER_TYPES.SIGN_UP_FAILED, AuthError>;
@@ -27,12 +29,13 @@ export const signUpFailed = withMatcher(
 );
 
 export const signUp =
-	(email: string, password: string, displayName: string) =>
+	(email: string, password: string, displayName?: string) =>
 	async (dispatch: any, getState: any) => {
 		try {
 			const { user } = await createUserFromEmailAndPassword(email, password);
-			await createUserDocument(user);
-			dispatch(setCurrentUserAsync(user));
+			await createUserDocument(user, displayName);
+			// dispatch(setCurrentUserAsync(user));
+			
 		} catch (error) {
 			dispatch(signUpFailed(error as AuthError));
 		}
@@ -47,7 +50,8 @@ export const signInFailed = withMatcher(
 export const signIn = (email: string, password: string) => async (dispatch: any, getState: any) => {
 	try {
 		const { user } = await signInUserWithEmailAndPassWord(email, password);
-		dispatch(setCurrentUserAsync(user));
+		createUserDocument(user);
+		// dispatch(setCurrentUserAsync(user));
 	} catch (error) {
 		dispatch(signUpFailed(error as AuthError));
 	}
