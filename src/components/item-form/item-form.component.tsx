@@ -7,6 +7,7 @@ import { selectTimerMode } from '../../store/timer/timer.selectors';
 
 import ItemInput from '../item-input/item-input.component';
 import { FormContainer, ItemButton } from './item-form.styles';
+import { generateTaskID } from '../../utils/reducer/list.utils/list.utils';
 
 const ItemForm: FC<FormHTMLAttributes<HTMLFormElement>> = () => {
 	const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const ItemForm: FC<FormHTMLAttributes<HTMLFormElement>> = () => {
 		onSubmit: (values, { resetForm }) => {
 			dispatch(
 				addItemToListAsync({
+					id: generateTaskID(values.taskName, values.description),
 					taskName: values.taskName,
 					complete: false,
 					completedAt: 'Not Complete',

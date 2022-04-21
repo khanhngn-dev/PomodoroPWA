@@ -15,43 +15,33 @@ import {
 } from './task.styles';
 
 export type ListProps = {
-	index: number;
+	id: string;
 	taskName: string;
 	complete: boolean;
 	completedAt: string;
 	description: string;
 	openDesc: boolean;
-	onChecked: (event: ChangeEvent<HTMLInputElement>, index: number) => void;
-	onDelete: (event: MouseEvent<HTMLSpanElement>, index: number) => void;
-	onOpen: (event: MouseEvent<HTMLDivElement>, index: number) => void;
+	onChecked: (event: ChangeEvent<HTMLInputElement>, id: string) => void;
+	onDelete: (event: MouseEvent<HTMLSpanElement>, id: string) => void;
+	onOpen: (event: MouseEvent<HTMLDivElement>, id: string) => void;
 };
 
 const Task: FC<ListProps> = memo(
-	({
-		index,
-		taskName,
-		completedAt,
-		complete,
-		description,
-		openDesc,
-		onChecked,
-		onDelete,
-		onOpen,
-	}) => {
+	({ id, taskName, completedAt, complete, description, openDesc, onChecked, onDelete, onOpen }) => {
 		const timerMode = useSelector(selectTimerMode);
 
 		return (
-			<TaskContainer className={`${timerMode ? 'break' : 'work'}`}>
-				<TaskSummary onClick={(e) => onOpen(e, index)}>
+			<TaskContainer className={`${timerMode ? 'break' : 'work'}`} id={id}>
+				<TaskSummary onClick={(e) => onOpen(e, id)}>
 					<TaskNameContainer>{taskName}</TaskNameContainer>
 					<CheckBoxContainer
 						className={`${timerMode ? 'break' : 'work'}`}
 						type='checkbox'
 						checked={complete}
-						onChange={(e) => onChecked(e, index)}
+						onChange={(e) => onChecked(e, id)}
 					/>
 					<TaskDateContainer>{completedAt}</TaskDateContainer>
-					<DeleteTaskContainer onClick={(e) => onDelete(e, index)}>
+					<DeleteTaskContainer onClick={(e) => onDelete(e, id)}>
 						<CrossSVG />
 					</DeleteTaskContainer>
 				</TaskSummary>

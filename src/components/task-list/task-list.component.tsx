@@ -8,7 +8,7 @@ import {
 	setCompleteItemAsync,
 	toggleDetailed,
 } from '../../store/list/list.actions';
-import { checkItem, deleteItem, toggleItem } from '../../utils/reducer/list.utils/list.utils';
+import { checkItem, toggleItem } from '../../utils/reducer/list.utils/list.utils';
 
 import Task from '../task/task.component';
 import { TaskListContainer, EmptyTaskListPlaceHolder } from './task-list.styles';
@@ -19,26 +19,25 @@ const TaskList = () => {
 	const listItems = useSelector(selectListItems);
 	const timerMode = useSelector(selectTimerMode);
 
-	const onCheckedHandler = (event: ChangeEvent<HTMLInputElement>, index: number) => {
-		dispatch(setCompleteItemAsync(checkItem(listItems, index)));
+	const onCheckedHandler = (event: ChangeEvent<HTMLInputElement>, id: string) => {
+		dispatch(setCompleteItemAsync(checkItem(listItems, id), id));
 	};
 
-	const onDeleteHandler = (event: MouseEvent<HTMLSpanElement>, index: number) => {
+	const onDeleteHandler = (event: MouseEvent<HTMLSpanElement>, id: string) => {
 		event.stopPropagation();
-		dispatch(removeItemFromListAsync(deleteItem(listItems, index)));
+		dispatch(removeItemFromListAsync(listItems, id));
 	};
 
-	const onOpenHandler = (event: MouseEvent<HTMLDivElement>, index: number) => {
-		dispatch(toggleDetailed(toggleItem(listItems, index)));
+	const onOpenHandler = (event: MouseEvent<HTMLDivElement>, id: string) => {
+		dispatch(toggleDetailed(toggleItem(listItems, id)));
 	};
 
 	return (
 		<TaskListContainer>
 			{listItems?.length ? (
-				listItems.map((item, index) => (
+				listItems.map((item) => (
 					<Task
-						key={index}
-						index={index}
+						key={item.id}
 						onChecked={onCheckedHandler}
 						onDelete={onDeleteHandler}
 						onOpen={onOpenHandler}
