@@ -6,8 +6,18 @@ import {
 	signOut,
 	User,
 } from 'firebase/auth';
-import { getFirestore, doc, getDoc, setDoc, QueryDocumentSnapshot } from 'firebase/firestore';
-import { defaultListItems, ListItem, ListType } from '../../store/list/list.reducer';
+import {
+	getFirestore,
+	doc,
+	setDoc,
+	collection,
+	getDocs,
+	deleteDoc,
+	QuerySnapshot,
+	getDoc,
+} from 'firebase/firestore';
+import { defaultListItems, ListItem } from '../../store/list/list.reducer';
+import { INITIAL_STATE } from '../../store/timer/timer.reducer';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyDT5Gnc3-qh1v_wDzknuLUqYcQI-ACTZhM',
@@ -32,38 +42,90 @@ export const signInUserWithEmailAndPassWord = async (email: string, password: st
 	signInWithEmailAndPassword(auth, email, password);
 
 export const createUserDocument = async (
-	user: User | null
-): Promise<QueryDocumentSnapshot<ListType> | undefined> => {
-	if (!user) return;
-	const itemsRef = doc(db, '/users', user.uid);
-	const itemsSnapshot = await getDoc(itemsRef);
-	if (!itemsSnapshot.exists()) {
-		try {
-			setDoc(itemsRef, {
-				items: defaultListItems,
-			});
-		} catch (error) {
-			console.error(error);
-		}
-	}
-	return itemsSnapshot as QueryDocumentSnapshot<ListType>;
-};
-
-export const fetchUserDocument = async (user: User | null): Promise<ListType | undefined> => {
-	if (!user) return;
-	const itemsRef = doc(db, '/users', user.uid);
-	const itemSnapshot = await getDoc(itemsRef);
-	return itemSnapshot.data() as ListType;
-};
-
-export const updateUserDocument = async (
 	user: User | null,
-	items: ListItem[]
+	displayName = user?.email
+): Promise<QuerySnapshot<ListItem[]> | undefined> => {
+	if (!user) return;
+	const itemsRef = collection(db, `/users/${user.uid}/list`);
+	const itemsSnapshot = await getDocs(itemsRef);
+	const settingsRef = collection(db, `/users/${user.uid}/settings`);
+
+	try {
+		if (itemsSnapshot.empty) {
+			defaultListItems.forEach((item) => {
+				const itemRef = doc(itemsRef, item.id);
+				setDoc(itemRef, item);
+			});
+		}
+		const infoRef = doc(settingsRef, 'info');
+		if (!(await getDoc(infoRef)).exists()) {
+			setDoc(infoRef, { displayName });
+		}
+		const clockRef = doc(settingsRef, 'clock');
+		if (!(await getDoc(clockRef)).exists()) {
+			const { breakTime, defaultTime } = INITIAL_STATE;
+			setDoc(clockRef, { breakTime, defaultTime });
+		}
+	} catch (error) {
+		console.error(error);
+	}
+	return itemsSnapshot as QuerySnapshot<ListItem[]>;
+};
+
+export const fetchUserTasks = async (user: User | null): Promise<ListItem[] | undefined> => {
+	if (!user) return;
+	const itemsRef = collection(db, `/users/${user.uid}/list`);
+	const itemsSnapshot = await getDocs(itemsRef);
+	return itemsSnapshot.docs.map((item) => item.data()) as unknown as ListItem[];
+};
+
+export const updateUserTask = async (
+	user: User | null,
+	item: ListItem | undefined
+): Promise<undefined> => {
+	if (!user || !item) return;
+	const itemRef = doc(db, `/users/${user.uid}/list`, item.id);
+	try {
+		setDoc(itemRef, item);
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+export const deleteUserTask = async (
+	user: User | null,
+	item: ListItem | undefined
+): Promise<undefined> => {
+	if (!user || !item) return;
+	const itemRef = doc(db, `/users/${user.uid}/list`, item.id);
+	try {
+		await deleteDoc(itemRef);
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+export const updateClockSetting = async (
+	user: User | null,
+	defaultTime: number,
+	breakTime: number
 ): Promise<undefined> => {
 	if (!user) return;
-	const itemsRef = doc(db, '/users', user.uid);
+	const clockRef = doc(db, `/users/${user.uid}/settings`, 'clock');
 	try {
-		setDoc(itemsRef, { items });
+		await setDoc(clockRef, { defaultTime, breakTime });
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+export const fetchClockSetting = async (
+	user: User | null
+): Promise<undefined | { defaultTime: number; breakTime: number }> => {
+	if (!user) return;
+	const clockRef = doc(db, `/users/${user.uid}/settings`, 'clock');
+	try {
+		return (await (await getDoc(clockRef)).data()) as { defaultTime: number; breakTime: number };
 	} catch (error) {
 		console.error(error);
 	}
