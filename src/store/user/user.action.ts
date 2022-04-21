@@ -28,18 +28,15 @@ export const signUpFailed = withMatcher(
 	(error: AuthError): SignUpFailed => createAction(USER_TYPES.SIGN_UP_FAILED, error)
 );
 
-export const signUp =
-	(email: string, password: string, displayName?: string) =>
-	async (dispatch: any, getState: any) => {
-		try {
-			const { user } = await createUserFromEmailAndPassword(email, password);
-			await createUserDocument(user, displayName);
-			// dispatch(setCurrentUserAsync(user));
-			
-		} catch (error) {
-			dispatch(signUpFailed(error as AuthError));
-		}
-	};
+export const signUp = (email: string, password: string) => async (dispatch: any, getState: any) => {
+	try {
+		const { user } = await createUserFromEmailAndPassword(email, password);
+		await createUserDocument(user, email);
+		// dispatch(setCurrentUserAsync(user));
+	} catch (error) {
+		dispatch(signUpFailed(error as AuthError));
+	}
+};
 
 type SignInFailed = ActionWithPayload<USER_TYPES.SIGN_IN_FAILED, AuthError>;
 
@@ -50,7 +47,7 @@ export const signInFailed = withMatcher(
 export const signIn = (email: string, password: string) => async (dispatch: any, getState: any) => {
 	try {
 		const { user } = await signInUserWithEmailAndPassWord(email, password);
-		createUserDocument(user);
+		await createUserDocument(user, email);
 		// dispatch(setCurrentUserAsync(user));
 	} catch (error) {
 		dispatch(signUpFailed(error as AuthError));

@@ -43,7 +43,7 @@ export const signInUserWithEmailAndPassWord = async (email: string, password: st
 
 export const createUserDocument = async (
 	user: User | null,
-	displayName = user?.email
+	displayName: string
 ): Promise<QuerySnapshot<ListItem[]> | undefined> => {
 	if (!user) return;
 	const itemsRef = collection(db, `/users/${user.uid}/list`);
