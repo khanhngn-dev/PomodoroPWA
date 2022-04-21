@@ -1,8 +1,8 @@
 import { ListItem } from '../../../store/list/list.reducer';
 
-export const checkItem = (items: ListItem[], index: number): ListItem[] =>
+export const checkItem = (items: ListItem[], id: string): ListItem[] =>
 	items.map((item, i) =>
-		i === index
+		item.id === id
 			? {
 					...item,
 					complete: !item.complete,
@@ -11,9 +11,9 @@ export const checkItem = (items: ListItem[], index: number): ListItem[] =>
 			: item
 	);
 
-export const toggleItem = (items: ListItem[], index: number): ListItem[] =>
-	items.map((item, i) =>
-		i === index
+export const toggleItem = (items: ListItem[], id: string): ListItem[] =>
+	items.map((item) =>
+		item.id === id
 			? {
 					...item,
 					openDesc: !item.openDesc,
@@ -33,24 +33,10 @@ export const createDate = (): string => {
 	}/${month < 10 ? `0${month}` : `${month}`}/${year}`;
 };
 
-export const deleteItem = (items: ListItem[], index: number): ListItem[] =>
-	items.filter((_, i) => i !== index);
+export const deleteItem = (items: ListItem[], id: string): ListItem[] =>
+	items.filter((item) => item.id !== id);
 
-export const sendNotification = (timerMode: boolean, time: number) => {
-	let min = Math.floor(time / 60);
-	let sec = time % 60;
-	let timeStr = `(for ${min < 10 ? `0${min}` : min}:${sec < 10 ? `0${sec}` : sec})`;
-	window?.Notification?.requestPermission()?.then((result) => {
-		if (result === 'granted') {
-			new Notification('From Pomodoro', {
-				body: `${
-					!timerMode ? `Let's take a break ${timeStr}` : `Let's get back to work ${timeStr}`
-				}`,
-			});
-		} else if (result === 'denied') {
-			alert(
-				`${!timerMode ? `Let's take a break ${timeStr}` : `Let's get back to work ${timeStr}`}`
-			);
-		}
-	});
-};
+export const generateTaskID = (taskName: string, description: string) =>
+	`${Date.now() * Math.random()}${taskName.length * Math.random()}${
+		description.length * Math.random()
+	}`;
