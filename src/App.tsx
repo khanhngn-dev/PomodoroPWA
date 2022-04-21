@@ -31,6 +31,11 @@ function App() {
 					<Route index element={<Home />} />
 					<Route path='/signin' element={user ? <Navigate to='/' replace /> : <SignIn />} />
 					<Route path='/signup' element={user ? <Navigate to='/' replace /> : <SignUp />} />
+					{/* 
+						React Router v6 replaces <Redirect/> with <Navigate/> 
+						"*" will only match when no other route match, order does NOT matter
+						replace attributes prevent redirect when users clicked back = removed from history
+					*/}
 					<Route path='*' element={<Navigate to='/' replace />} />
 				</Route>
 			</Routes>
