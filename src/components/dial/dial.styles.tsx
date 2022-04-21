@@ -12,6 +12,14 @@ export const DialWrapper = styled.input`
 	line-height: 80px;
 	border-radius: 10px;
 	transition: 0.25s ease all;
+	::-webkit-outer-spin-button,
+	::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+	[type='number'] {
+		-moz-appearance: textfield;
+	}
 	@media (max-width: 768px) {
 		margin: 12px;
 	}
