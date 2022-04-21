@@ -10,7 +10,7 @@ import Button from '../../components/button/button.component';
 import { FormWrapper, SignUpWrapper, ErrorWrapper } from './signup.styles';
 
 type FormTypes = {
-	displayName: string;
+	// displayName: string;
 	email: string;
 	password: string;
 	confirmPassword: string;
@@ -21,7 +21,7 @@ const SignUp = () => {
 	const error = useSelector(selectUserError);
 
 	const handleSubmit = (values: FormTypes, resetForm: any) => {
-		dispatch(signUp(values.email, values.password, values.displayName));
+		dispatch(signUp(values.email, values.password));
 		resetForm();
 	};
 
@@ -35,7 +35,7 @@ const SignUp = () => {
 
 	const formik = useFormik({
 		initialValues: {
-			displayName: '',
+			// displayName: '',
 			email: '',
 			password: '',
 			confirmPassword: '',
@@ -44,7 +44,7 @@ const SignUp = () => {
 		onSubmit: (values, { resetForm }) => handleSubmit(values, resetForm),
 		onReset: (values: FormTypes) => {
 			values = {
-				displayName: '',
+				// displayName: '',
 				email: '',
 				password: '',
 				confirmPassword: '',
@@ -65,7 +65,7 @@ const SignUp = () => {
 				{error?.code.split('auth/')[1].replaceAll('-', ' ').toLocaleUpperCase()}
 			</ErrorWrapper>
 			<FormWrapper onSubmit={formik.handleSubmit}>
-				<FormInputWrapper
+				{/* <FormInputWrapper
 					required
 					label='Display Name*'
 					type='text'
@@ -75,7 +75,7 @@ const SignUp = () => {
 					maxLength={20}
 					value={formik.values.displayName}
 					onChange={formik.handleChange}
-				/>
+				/> */}
 				<FormInputWrapper
 					required
 					label='Email*'
