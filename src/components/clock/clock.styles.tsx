@@ -14,7 +14,7 @@ export const DialDivider = styled.span`
 	opacity: 1;
 	transition: 0.25s ease all;
 	&.work {
-		color: var(--color-primary);
+		color: var(--color-secondary);
 	}
 	&.break {
 		color: var(--color-accent);

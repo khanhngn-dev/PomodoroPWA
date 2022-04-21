@@ -25,7 +25,7 @@ export const InputContainer = styled.div`
 export const ItemButton = styled(Button)`
 	width: 90%;
 	&.break {
-		background-color: #008900;
+		background-color: var(--color-darker-accent);
 		&:hover {
 			background-color: var(--color-accent);
 		}

@@ -31,7 +31,7 @@ export const LinkWrapper = styled(Link)`
 	padding: 10px 20px;
 	letter-spacing: 1px;
 	font-weight: bold;
-	color: var(--color-primary);
+	color: var(--color-secondary);
 	transition: 0.25s all ease;
 	&:hover {
 		cursor: pointer;
@@ -40,5 +40,10 @@ export const LinkWrapper = styled(Link)`
 `;
 
 export const DisplayNameWrapper = styled.span`
+	text-overflow: ellipsis;
+	overflow: hidden;
 	color: var(--color-primary);
+	@media (max-width: 768px) {
+		max-width: 120px;
+	}
 `;
