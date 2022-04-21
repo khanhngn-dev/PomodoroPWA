@@ -49,7 +49,10 @@ export const TaskNameContainer = styled.span`
 	flex: 3;
 	text-align: center;
 	word-wrap: break-word;
-	max-width: 200px;
+	width: 200px;
+	@media (max-width: 768px) {
+		width: 120px;
+	}
 `;
 
 export const TaskDateContainer = styled.span`
@@ -62,6 +65,7 @@ export const DeleteTaskContainer = styled.span`
 	display: flex;
 	align-items: center;
 	transition: 0.25s ease all;
+	flex-shrink: 0;
 	&:hover {
 		color: darkred;
 		cursor: pointer;
@@ -73,6 +77,7 @@ export const CheckBoxContainer = styled.input`
 	width: 9px;
 	height: 9px;
 	position: relative;
+	flex-shrink: 0;
 	&:hover {
 		cursor: pointer;
 		&::before {
@@ -115,4 +120,3 @@ export const CheckBoxContainer = styled.input`
 		}
 	}
 `;
-
