@@ -20,8 +20,8 @@ function App() {
 	useEffect(() => {
 		const unsub = onAuthStateChanged(auth, (user) => {
 			dispatch(setCurrentUserAsync(user));
+			unsub();
 		});
-		return unsub;
 	}, [dispatch]);
 
 	return (
