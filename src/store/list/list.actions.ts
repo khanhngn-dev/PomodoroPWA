@@ -1,11 +1,16 @@
 import { User } from 'firebase/auth';
-import { fetchUserDocument, updateUserDocument } from '../../utils/firebase/firebase.utils';
+import {
+	fetchUserTasks,
+	updateUserTask,
+	deleteUserTask,
+} from '../../utils/firebase/firebase.utils';
 import {
 	createAction,
 	ActionWithPayload,
 	// Action,
 	withMatcher,
 } from '../../utils/reducer/reducers.utils';
+import { deleteItem } from '../../utils/reducer/list.utils/list.utils';
 import { ListItem } from './list.reducer';
 import { LIST_TYPES } from './list.types';
 
@@ -15,13 +20,17 @@ export const setCompleteItem = withMatcher(
 	(items: ListItem[]): SetCompleteItem => createAction(LIST_TYPES.SET_COMPLETE_ITEM, items)
 );
 
-export const setCompleteItemAsync = (items: ListItem[]) => async (dispatch: any, getState: any) => {
-	const {
-		user: { currentUser },
-	} = getState();
-	dispatch(setCompleteItem(items));
-	updateUserDocument(currentUser, items);
-};
+export const setCompleteItemAsync =
+	(items: ListItem[], id: string) => async (dispatch: any, getState: any) => {
+		const {
+			user: { currentUser },
+		} = getState();
+		dispatch(setCompleteItem(items));
+		updateUserTask(
+			currentUser,
+			items.find((item) => item.id === id)
+		);
+	};
 
 type RemoveItemFromList = ActionWithPayload<LIST_TYPES.REMOVE_ITEM_FROM_LIST, ListItem[]>;
 
@@ -30,12 +39,15 @@ export const removeItemFromList = withMatcher(
 );
 
 export const removeItemFromListAsync =
-	(items: ListItem[]) => async (dispatch: any, getState: any) => {
+	(items: ListItem[], id: string) => async (dispatch: any, getState: any) => {
 		const {
 			user: { currentUser },
 		} = getState();
-		dispatch(removeItemFromList(items));
-		updateUserDocument(currentUser, items);
+		dispatch(removeItemFromList(deleteItem(items, id)));
+		deleteUserTask(
+			currentUser,
+			items.find((item) => item.id === id)
+		);
 	};
 
 type AddItemToList = ActionWithPayload<LIST_TYPES.ADD_ITEM_TO_LIST, ListItem>;
@@ -48,9 +60,8 @@ export const addItemToListAsync = (item: ListItem) => async (dispatch: any, getS
 	dispatch(addItemToList(item));
 	const {
 		user: { currentUser },
-		list: { items },
 	} = getState();
-	updateUserDocument(currentUser, items);
+	updateUserTask(currentUser, item);
 };
 
 type ToggleDetailed = ActionWithPayload<LIST_TYPES.TOGGLE_DETAILED, ListItem[]>;
@@ -67,9 +78,8 @@ export const updateList = withMatcher(
 
 export const fetchUserList = (user: User | null) => async (dispatch: any, getState: any) => {
 	try {
-		const docRef = await fetchUserDocument(user);
-		if (!docRef) return;
-		const { items } = docRef;
+		const items = await fetchUserTasks(user);
+		if (!items) return;
 		dispatch(updateList(items));
 	} catch (error) {
 		console.error(error);

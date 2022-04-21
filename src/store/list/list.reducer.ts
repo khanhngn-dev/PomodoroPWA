@@ -8,6 +8,7 @@ import {
 } from './list.actions';
 
 export type ListItem = {
+	readonly id: string;
 	readonly taskName: string;
 	readonly complete: boolean;
 	readonly completedAt: string;
@@ -22,6 +23,7 @@ export type ListType = {
 
 export const defaultListItems: ListItem[] = [
 	{
+		id: 'test-ID-1',
 		taskName: 'Complete learning TS',
 		complete: true,
 		completedAt: '13:51 14/04/22',
@@ -29,6 +31,7 @@ export const defaultListItems: ListItem[] = [
 		openDesc: false,
 	},
 	{
+		id: 'test-ID-2',
 		taskName: 'Complete Pomodoro Clock using TS',
 		complete: false,
 		completedAt: 'Not Complete',
