@@ -1,11 +1,15 @@
 // import { ActionCreator, Dispatch } from 'redux';
-// import { ThunkAction } from 'redux-thunk';
+// import { ThunkAction } from 'redux-thunk'
+import { User } from 'firebase/auth';
+import { fetchClockSetting, updateClockSetting } from '../../utils/firebase/firebase.utils';
 import {
 	createAction,
 	ActionWithPayload,
 	Action,
 	withMatcher,
 } from '../../utils/reducer/reducers.utils';
+import { setDocumentTitle, sendNotification } from '../../utils/reducer/timer.utils/timer.utils';
+
 // import { RootState } from '../store';
 import { TIMER_TYPES } from './timer.types';
 
@@ -38,11 +42,31 @@ export const onTimerStop = withMatcher(
 );
 
 export const asyncTimer = () => (dispatch: any, getState: any) => {
-	const {
-		timer: { isCounting },
-	} = getState();
+	const { timer } = getState();
+	const { isCounting, breakTime, defaultTime } = timer;
 	if (isCounting) {
-		let timeInterval = setInterval(() => dispatch(onTimerCount()), 1000);
+		const timerMode = timer.break;
+		let stateString = timerMode ? 'Taking a break off' : 'Working';
+		let { currentTime } = timer;
+		currentTime--;
+		let minutes = Math.floor(currentTime / 60);
+		let seconds = currentTime % 60;
+		setDocumentTitle(minutes, seconds, stateString);
+		let timeInterval = setInterval(() => {
+			seconds--;
+			if (seconds === -1) {
+				if (minutes === 0) {
+					dispatch(setTimerMode(!timerMode));
+					dispatch(resetAsync());
+					sendNotification(timerMode, !timerMode ? breakTime : defaultTime);
+					return;
+				}
+				minutes--;
+				seconds = 59;
+			}
+			setDocumentTitle(minutes, seconds, stateString);
+			dispatch(onTimerCount());
+		}, 1000);
 		dispatch(onTimerStart(timeInterval));
 		dispatch(onTimerCount());
 	} else {
@@ -67,28 +91,61 @@ export const resetAsync = () => (dispatch: any, getState: any) => {
 	dispatch(onTimerStop(null));
 	dispatch(setIsCounting(false));
 	dispatch(resetTimer(newTime));
+	document.title = 'Pomodoro';
 };
 
-export type SetStartTime = ActionWithPayload<TIMER_TYPES.SET_START_TIME, number>;
+type SetStartTime = ActionWithPayload<TIMER_TYPES.SET_START_TIME, number>;
 
 export const setStartTime = withMatcher(
 	(start: number): SetStartTime => createAction(TIMER_TYPES.SET_START_TIME, start)
 );
 
-export type SetDefaultTime = ActionWithPayload<TIMER_TYPES.SET_DEFAULT_TIME, number>;
+type SetDefaultTime = ActionWithPayload<TIMER_TYPES.SET_DEFAULT_TIME, number>;
 
 export const setDefaultTime = withMatcher(
 	(time: number): SetDefaultTime => createAction(TIMER_TYPES.SET_DEFAULT_TIME, time)
 );
 
-export type SetBreakTime = ActionWithPayload<TIMER_TYPES.SET_BREAK_TIME, number>;
+export const setDefaultTimeAsync =
+	(defaultTime: number) => async (dispatch: any, getState: any) => {
+		const {
+			user: { currentUser },
+			timer: { breakTime },
+		} = getState();
+		dispatch(setDefaultTime(defaultTime));
+		updateClockSetting(currentUser, defaultTime, breakTime);
+	};
+
+type SetBreakTime = ActionWithPayload<TIMER_TYPES.SET_BREAK_TIME, number>;
 
 export const setBreakTime = withMatcher(
 	(time: number): SetBreakTime => createAction(TIMER_TYPES.SET_BREAK_TIME, time)
 );
 
-export type SetTimerMode = ActionWithPayload<TIMER_TYPES.SET_TIMER_MODE, boolean>;
+export const setBreakTimeAsync = (breakTime: number) => async (dispatch: any, getState: any) => {
+	const {
+		user: { currentUser },
+		timer: { defaultTime },
+	} = getState();
+	dispatch(setBreakTime(breakTime));
+	updateClockSetting(currentUser, defaultTime, breakTime);
+};
+
+type SetTimerMode = ActionWithPayload<TIMER_TYPES.SET_TIMER_MODE, boolean>;
 
 export const setTimerMode = withMatcher(
 	(mode: boolean): SetTimerMode => createAction(TIMER_TYPES.SET_TIMER_MODE, mode)
 );
+
+export const fetchTimerSettingsAsync =
+	(user: User | null) => async (dispatch: any, getState: any) => {
+		const clockSetting = await fetchClockSetting(user);
+		if (!clockSetting) return;
+		const { defaultTime, breakTime } = clockSetting;
+		const {
+			timer: { timerMode },
+		} = getState();
+		dispatch(setBreakTime(breakTime));
+		dispatch(setDefaultTime(defaultTime));
+		timerMode ? dispatch(setStartTime(breakTime)) : dispatch(setStartTime(defaultTime));
+	};
