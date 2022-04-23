@@ -28,7 +28,7 @@ const SignUp = () => {
 	const validate = (values: FormTypes) => {
 		let errors: FormikErrors<FormTypes> = {};
 		if (values.password !== values.confirmPassword) {
-			errors.confirmPassword = 'Password do not match';
+			errors.confirmPassword = 'PASSWORD DO NOT MATCH';
 		}
 		return errors;
 	};
@@ -61,8 +61,9 @@ const SignUp = () => {
 				linkText='Sign in'
 			/>
 			<ErrorWrapper>
-				{formik.errors.confirmPassword ? formik.errors.confirmPassword : null}
-				{error?.code.split('auth/')[1].replaceAll('-', ' ').toLocaleUpperCase()}
+				{formik.errors.confirmPassword
+					? formik.errors.confirmPassword
+					: error?.code.split('auth/')[1].replaceAll('-', ' ').toLocaleUpperCase()}
 			</ErrorWrapper>
 			<FormWrapper onSubmit={formik.handleSubmit}>
 				{/* <FormInputWrapper
