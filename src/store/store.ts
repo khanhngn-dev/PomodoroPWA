@@ -21,7 +21,7 @@ export type ExtendedPersistConfig = PersistConfig<RootState> & {
 const persistConfig: ExtendedPersistConfig = {
 	key: 'root',
 	storage,
-	whitelist: ['timer', 'list'],
+	whitelist: ['timer', 'list', 'theme'],
 	blacklist: ['user'],
 };
 

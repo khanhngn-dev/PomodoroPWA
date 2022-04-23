@@ -11,6 +11,7 @@ export const ItemInputContainer = styled.input`
 	background-color: var(--color-grey);
 	letter-spacing: 1px;
 	transition: 0.25s ease all;
+	border-color: ${(props) => props.theme.background};
 	&::placeholder {
 		color: #f5f5f5b4;
 	}
@@ -18,8 +19,8 @@ export const ItemInputContainer = styled.input`
 		border-color: var(--color-secondary);
 		background-color: var(--color-lighter-grey);
 	}
-	&.break {
-		border-color: var(--color-accent);
+	&:focus {
+		border-color: ${(props) => props.theme.innerBack};
 	}
 `;
 
@@ -27,6 +28,7 @@ export const ItemInputLabel = styled.label`
 	font-size: 1.5rem;
 	font-weight: bold;
 	letter-spacing: 1px;
+	color: ${(props) => props.theme.text};
 `;
 
 export const ItemInputWithLabel = styled.div`

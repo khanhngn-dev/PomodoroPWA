@@ -9,6 +9,7 @@ import {
 	createUserDocument,
 } from '../../utils/firebase/firebase.utils';
 import { fetchTimerSettingsAsync } from '../timer/timer.actions';
+import { fetchThemeSettingAsync } from '../theme/theme.actions';
 
 type SetCurrentUser = ActionWithPayload<USER_TYPES.SET_CURRENT_USER, User | null>;
 
@@ -20,6 +21,7 @@ export const setCurrentUserAsync = (user: User | null) => async (dispatch: any, 
 	dispatch(setCurrentUser(user));
 	dispatch(fetchUserList(user));
 	dispatch(fetchTimerSettingsAsync(user));
+	dispatch(fetchThemeSettingAsync(user));
 };
 
 type SignUpFailed = ActionWithPayload<USER_TYPES.SIGN_UP_FAILED, AuthError>;

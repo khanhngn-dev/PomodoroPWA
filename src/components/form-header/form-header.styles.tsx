@@ -5,5 +5,5 @@ export const FormHeaderWrapper = styled.div`
 	flex-direction: column;
 	width: 96%;
 	margin: auto;
-	color: var(--color-primary);
+	color: ${(props) => props.theme.text};
 `;

@@ -6,14 +6,13 @@ export const DetailContainer = styled.div`
 	border: 2px dashed white;
 	width: 98%;
 	padding: 20px;
-	background-color: var(--color-secondary);
 	transition: 0.25s ease all;
+	background-color: ${(props) => props.theme.innerBack};
 `;
 
 export const TaskContainer = styled.div`
 	border-radius: 20px;
 	width: 92%;
-	background-color: var(--color-primary);
 	min-height: max-content;
 	font-size: 1.2rem;
 	padding: 10px;
@@ -24,12 +23,6 @@ export const TaskContainer = styled.div`
 	justify-content: center;
 	flex-direction: column;
 	transition: 0.25s ease all;
-	&.break {
-		background-color: var(--color-accent);
-		${DetailContainer} {
-			background-color: darkgreen;
-		}
-	}
 `;
 
 export const TaskSummary = styled.div`
@@ -83,17 +76,6 @@ export const CheckBoxContainer = styled.input`
 		&::before {
 			background-color: #c7c7c7;
 		}
-		&.break {
-			&:checked::before {
-				background-color: darkred;
-			}
-		}
-		/* background-color: #017399; */
-		&.work {
-			&:checked::before {
-				background-color: #007e00;
-			}
-		}
 	}
 	&::before {
 		content: '';
@@ -108,15 +90,12 @@ export const CheckBoxContainer = styled.input`
 		border: 3px solid white;
 		transition: 0.25s ease all;
 	}
-	&.work {
-		&:checked::before {
-			background-color: var(--color-accent);
+	&:checked {
+		&:hover::before {
+			background-color: ${(props) => props.theme.invertBack};
 		}
-		/* background-color: #00a5dc; */
-	}
-	&.break {
-		&:checked::before {
-			background-color: var(--color-primary);
+		&::before {
+			background-color: ${(props) => props.theme.invert};
 		}
 	}
 `;

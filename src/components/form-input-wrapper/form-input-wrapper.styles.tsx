@@ -7,7 +7,7 @@ export const FormInput = styled.input`
 	padding: 16px 20px;
 	color: white;
 	outline: none;
-	border: 3px solid var(--color-primary);
+	border: 3px solid ${(props) => props.theme.innerBack};
 	background-color: var(--color-grey);
 	letter-spacing: 1px;
 	transition: 0.25s ease all;
@@ -15,22 +15,22 @@ export const FormInput = styled.input`
 		color: #f5f5f5b4;
 	}
 	&:focus {
-		border-color: var(--color-secondary);
+		border-color: ${(props) => props.theme.background};
 	}
 	&:focus ~ label,
 	&:not(:placeholder-shown) ~ label {
 		top: -16px;
 		transform: scale(1.5);
-		border-color: var(--color-secondary);
+		border-color: ${(props) => props.theme.background};
 	}
 `;
 
 export const FormLabel = styled.label`
 	position: absolute;
-	top: 38px;
+	top: 37px;
 	left: 22px;
 	transition: 0.25s ease all;
-	font-size: 0.8rem;
+	font-size: 1rem;
 	font-weight: bold;
 	letter-spacing: 1px;
 	transform-origin: left;

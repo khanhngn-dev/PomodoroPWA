@@ -1,17 +1,15 @@
-import { FC, FormHTMLAttributes } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FC, FormHTMLAttributes, memo } from 'react';
+import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 
 import { addItemToListAsync } from '../../store/list/list.actions';
-import { selectTimerMode } from '../../store/timer/timer.selectors';
 
 import ItemInput from '../item-input/item-input.component';
 import { FormContainer, ItemButton } from './item-form.styles';
 import { generateTaskID } from '../../utils/reducer/list.utils/list.utils';
 
-const ItemForm: FC<FormHTMLAttributes<HTMLFormElement>> = () => {
+const ItemForm: FC<FormHTMLAttributes<HTMLFormElement>> = memo(() => {
 	const dispatch = useDispatch();
-	const timerMode = useSelector(selectTimerMode);
 	const formik = useFormik({
 		initialValues: {
 			taskName: '',
@@ -56,10 +54,10 @@ const ItemForm: FC<FormHTMLAttributes<HTMLFormElement>> = () => {
 				placeholder='Add more features...'
 				maxLength={100}
 			/>
-			<ItemButton buttonType='submit' type='submit' className={`${timerMode ? 'break' : 'work'}`}>
+			<ItemButton buttonType='submit' type='submit'>
 				Add Task
 			</ItemButton>
 		</FormContainer>
 	);
-};
+});
 export default ItemForm;

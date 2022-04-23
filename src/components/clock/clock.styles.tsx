@@ -6,6 +6,9 @@ export const ClockContainer = styled.div`
 	align-items: center;
 	width: 90vw;
 	max-width: 500px;
+	> input {
+		color: ${(props) => props.theme.text};
+	}
 `;
 
 export const DialDivider = styled.span`
@@ -13,12 +16,7 @@ export const DialDivider = styled.span`
 	font-weight: bold;
 	opacity: 1;
 	transition: 0.25s ease all;
-	&.work {
-		color: var(--color-secondary);
-	}
-	&.break {
-		color: var(--color-accent);
-	}
+	color: ${(props) => props.theme.text};
 	&.blip {
 		animation-name: blip;
 		animation-duration: 1s;

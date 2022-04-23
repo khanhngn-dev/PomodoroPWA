@@ -9,6 +9,7 @@ export const BaseButton = styled.button`
 	font-size: 1.2rem;
 	width: 166px;
 	letter-spacing: 1.5px;
+	color: ${(props) => props.theme.text};
 	/* border: 3px solid var(--color-secondary); */
 	border: none;
 	transition: 0.25s ease all;
@@ -23,9 +24,9 @@ export const FormButton = styled(BaseButton)`
 	width: 96%;
 	margin: 10px auto;
 	color: white;
-	background-color: var(--color-secondary);
+	background-color: ${(props) => props.theme.innerBack};
 	&:hover {
-		background-color: var(--color-primary);
+		background-color: ${(props) => props.theme.background};
 	}
 `;
 
@@ -34,16 +35,4 @@ export const FilterButton = styled(BaseButton)`
 	margin: 5px;
 	color: white;
 	font-size: 0.9rem;
-	&.work {
-		background-color: var(--color-secondary);
-		&:hover {
-			background-color: var(--color-primary);
-		}
-	}
-	&.break {
-		background-color: var(--color-darker-accent);
-		&:hover {
-			background-color: var(--color-accent);
-		}
-	}
 `;

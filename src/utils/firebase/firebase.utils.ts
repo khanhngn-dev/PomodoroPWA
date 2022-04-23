@@ -18,6 +18,7 @@ import {
 } from 'firebase/firestore';
 import { ListItem } from '../../store/list/list.reducer';
 import { INITIAL_STATE } from '../../store/timer/timer.reducer';
+import { pbT, ThemeConfig } from '../../theme/theme';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyDT5Gnc3-qh1v_wDzknuLUqYcQI-ACTZhM',
@@ -66,6 +67,10 @@ export const createUserDocument = async (
 		if (!(await getDoc(clockRef)).exists()) {
 			const { breakTime, defaultTime } = INITIAL_STATE;
 			await setDoc(clockRef, { breakTime, defaultTime });
+		}
+		const themeRef = doc(settingsRef, 'theme');
+		if (!(await getDoc(themeRef)).exists()) {
+			await setDoc(themeRef, { pbT });
 		}
 	} catch (error) {
 		console.error(error);
@@ -127,6 +132,32 @@ export const fetchClockSetting = async (
 	const clockRef = doc(db, `/users/${user.uid}/settings`, 'clock');
 	try {
 		return (await (await getDoc(clockRef)).data()) as { defaultTime: number; breakTime: number };
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+export const updateThemeSetting = async (
+	user: User | null,
+	themes: ThemeConfig[]
+): Promise<undefined> => {
+	if (!user) return;
+	const themeRef = doc(db, `/users/${user.uid}/settings`, 'theme');
+	try {
+		await setDoc(themeRef, { themes });
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+export const fetchThemeSetting = async (
+	user: User | null
+): Promise<undefined | { themes: ThemeConfig[] }> => {
+	if (!user) return;
+	const themeRef = doc(db, `/users/${user.uid}/settings`, 'theme');
+	try {
+		const themeSetting = (await getDoc(themeRef)).data();
+		return themeSetting as { themes: ThemeConfig[] };
 	} catch (error) {
 		console.error(error);
 	}

@@ -6,6 +6,13 @@
 	--color-darker-accent: #008900;
 	--color-grey: rgb(32, 30, 30);
 	--color-lighter-grey: rgb(55, 52, 52);
+	--color-purple: #5d02c4;
+	--color-lighter-purple: #9847f5;
+	--color-darker-purple: #4f00a3;
+	--color-blue: #0040ff;
+	--color-darker-blue: #0045f2;
+	--color-lighter-blue: #0084ff;
+
 	font-size: 15px;
 }
 
@@ -20,6 +27,10 @@
 
 body {
 	background-color: black;
+	transition: 0.25s ease all;
+	@media (prefers-reduced-motion) {
+		transition: 0s;
+	}
 }
 
 a {
@@ -28,12 +39,4 @@ a {
 
 ::-webkit-scrollbar {
 	display: none;
-}
-
-.break {
-	color: var(--color-accent);
-}
-
-.work {
-	color: var(--color-secondary);
 }

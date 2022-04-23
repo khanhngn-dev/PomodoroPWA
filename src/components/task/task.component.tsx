@@ -1,7 +1,4 @@
 import { FC, ChangeEvent, memo, MouseEvent } from 'react';
-import { useSelector } from 'react-redux';
-
-import { selectTimerMode } from '../../store/timer/timer.selectors';
 
 import { ReactComponent as CrossSVG } from '../../assets/x-svgrepo-com.svg';
 import {
@@ -28,14 +25,11 @@ export type ListProps = {
 
 const Task: FC<ListProps> = memo(
 	({ id, taskName, completedAt, complete, description, openDesc, onChecked, onDelete, onOpen }) => {
-		const timerMode = useSelector(selectTimerMode);
-
 		return (
-			<TaskContainer className={`${timerMode ? 'break' : 'work'}`} id={id}>
+			<TaskContainer id={id}>
 				<TaskSummary onClick={(e) => onOpen(e, id)}>
 					<TaskNameContainer>{taskName}</TaskNameContainer>
 					<CheckBoxContainer
-						className={`${timerMode ? 'break' : 'work'}`}
 						type='checkbox'
 						checked={complete}
 						onChange={(e) => onChecked(e, id)}

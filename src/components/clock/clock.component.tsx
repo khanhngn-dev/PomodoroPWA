@@ -1,4 +1,4 @@
-import { useEffect, ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	setBreakTimeAsync,
@@ -22,24 +22,12 @@ const Clock = () => {
 	const minutes = Math.floor(currentTime / 60);
 	const seconds = currentTime % 60;
 
-	const [tenthMin, setTenthMin] = useState(0);
-	const [min, setMin] = useState(0);
-	const [tenthSec, setTenthSec] = useState(0);
-	const [sec, setSec] = useState(0);
-
-	// Initialization + Changes
-	useEffect(() => {
-		setTenthMin(Math.floor(minutes / 10));
-		setMin(minutes % 10);
-	}, [minutes]);
-
-	useEffect(() => {
-		setTenthSec(Math.floor(seconds / 10));
-		setSec(seconds % 10);
-	}, [seconds]);
-
 	const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
 		let time = 0;
+		const tenthMin = Math.floor(minutes / 10);
+		const min = minutes % 10;
+		const tenthSec = Math.floor(seconds / 10);
+		const sec = seconds % 10;
 		const targetTime = +event.target.value;
 		switch (event.target.name) {
 			case 'tenth-min':
@@ -63,40 +51,38 @@ const Clock = () => {
 	return (
 		<ClockContainer>
 			<Dial
-				dialType={`tenth-min`}
 				name='tenth-min'
 				onChange={changeHandler}
-				value={tenthMin}
+				// value={tenthMin}
+				value={Math.floor(minutes / 10)}
 				timerMode={timerMode}
 				disabled={isCounting}
 				type='number'
 			/>
 			<Dial
-				dialType={`min`}
 				onChange={changeHandler}
-				value={min}
+				// value={min}
+				value={minutes % 10}
 				name='min'
 				timerMode={timerMode}
 				disabled={isCounting}
 				type='number'
 			/>
-			<DialDivider className={`${isCounting ? 'blip' : ''} ${timerMode ? 'break' : 'work'}`}>
-				:
-			</DialDivider>
+			<DialDivider className={`${isCounting ? 'blip' : ''}`}>:</DialDivider>
 			<Dial
-				dialType={`tenth-sec`}
 				name='tenth-sec'
 				onChange={changeHandler}
-				value={tenthSec}
+				// value={tenthSec}
+				value={Math.floor(seconds / 10)}
 				timerMode={timerMode}
 				disabled={isCounting}
 				type='number'
 			/>
 			<Dial
-				dialType={`sec`}
 				name='sec'
 				onChange={changeHandler}
-				value={sec}
+				// value={sec}
+				value={seconds % 10}
 				timerMode={timerMode}
 				disabled={isCounting}
 				type='number'

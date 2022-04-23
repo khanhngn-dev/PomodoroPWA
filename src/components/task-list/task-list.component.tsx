@@ -1,8 +1,8 @@
-import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
+import { ChangeEvent, MouseEvent, useEffect, useState, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectListItems } from '../../store/list/list.selectors';
+import { ListItem } from '../../store/list/list.reducer';
 
-import { selectTimerMode } from '../../store/timer/timer.selectors';
 import {
 	removeItemFromListAsync,
 	setCompleteItemAsync,
@@ -10,20 +10,19 @@ import {
 } from '../../store/list/list.actions';
 import { checkItem, toggleItem } from '../../utils/reducer/list.utils/list.utils';
 
+import FilterToggle from '../filter-toggle/filter-toggle.component';
+
 import Task from '../task/task.component';
 import {
 	TaskListContainer,
 	EmptyTaskListPlaceHolder,
 	FilterContainer,
-	FilterToggle,
 	TaskListWrapper,
 } from './task-list.styles';
-import { ListItem } from '../../store/list/list.reducer';
 
-const TaskList = () => {
+const TaskList = memo(() => {
 	const dispatch = useDispatch();
 	const listItems = useSelector(selectListItems);
-	const timerMode = useSelector(selectTimerMode);
 
 	const [filteredList, setFilteredList] = useState<ListItem[]>(listItems);
 	const [filter, setFilter] = useState('All');
@@ -65,7 +64,7 @@ const TaskList = () => {
 		<TaskListContainer>
 			<FilterContainer>
 				<FilterToggle
-					className={`${timerMode ? 'break' : 'work'}`}
+					label='All'
 					type='radio'
 					name='filter'
 					value='All'
@@ -73,14 +72,14 @@ const TaskList = () => {
 					defaultChecked={true}
 				/>
 				<FilterToggle
-					className={`${timerMode ? 'break' : 'work'}`}
+					label='Checked'
 					type='radio'
 					name='filter'
 					value='Checked'
 					onChange={onFilter}
 				/>
 				<FilterToggle
-					className={`${timerMode ? 'break' : 'work'}`}
+					label='Unchecked'
 					type='radio'
 					name='filter'
 					value='Unchecked'
@@ -100,12 +99,12 @@ const TaskList = () => {
 					))}
 				</TaskListWrapper>
 			) : (
-				<EmptyTaskListPlaceHolder className={`${timerMode ? 'break' : 'work'}`}>
+				<EmptyTaskListPlaceHolder>
 					{filter !== 'All' ? 'Change filter modes' : 'Add some task'}
 				</EmptyTaskListPlaceHolder>
 			)}
 		</TaskListContainer>
 	);
-};
+});
 
 export default TaskList;

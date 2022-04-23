@@ -11,17 +11,8 @@ const ItemInput: FC<ItemInputProps> = ({ label, name, ...others }) => {
 	const timerMode = useSelector(selectTimerMode);
 	return (
 		<ItemInputWithLabel>
-			<ItemInputLabel htmlFor={name} className={`${timerMode ? 'break' : 'work'}`}>
-				{label}
-			</ItemInputLabel>
-			<ItemInputContainer
-				id={name}
-				className={`${timerMode ? 'break' : 'work'}`}
-				type='text'
-				disabled={timerMode}
-				name={name}
-				{...others}
-			/>
+			<ItemInputLabel htmlFor={name}>{label}</ItemInputLabel>
+			<ItemInputContainer id={name} type='text' disabled={timerMode} name={name} {...others} />
 		</ItemInputWithLabel>
 	);
 };

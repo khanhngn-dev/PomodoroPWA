@@ -8,6 +8,8 @@ import { setCurrentUserAsync } from './store/user/user.action';
 import { selectCurrentUser } from './store/user/user.selectors';
 import { auth } from './utils/firebase/firebase.utils';
 
+
+
 const Navigation = lazy(() => import('./routes/navigation/navigation.component'));
 const Home = lazy(() => import('./routes/home/home.component'));
 const SignIn = lazy(() => import('./routes/signin/signin.component'));
@@ -26,19 +28,19 @@ function App() {
 
 	return (
 		<Suspense fallback={<Spinner />}>
-			<Routes>
-				<Route path='/' element={<Navigation />}>
-					<Route index element={<Home />} />
-					<Route path='/signin' element={user ? <Navigate to='/' replace /> : <SignIn />} />
-					<Route path='/signup' element={user ? <Navigate to='/' replace /> : <SignUp />} />
-					{/* 
+				<Routes>
+					<Route path='/' element={<Navigation />}>
+						<Route index element={<Home />} />
+						<Route path='/signin' element={user ? <Navigate to='/' replace /> : <SignIn />} />
+						<Route path='/signup' element={user ? <Navigate to='/' replace /> : <SignUp />} />
+						{/* 
 						React Router v6 replaces <Redirect/> with <Navigate/> 
 						"*" will only match when no other route match, order does NOT matter
 						replace attributes prevent redirect when users clicked back = removed from history
 					*/}
-					<Route path='*' element={<Navigate to='/' replace />} />
-				</Route>
-			</Routes>
+						<Route path='*' element={<Navigate to='/' replace />} />
+					</Route>
+				</Routes>
 		</Suspense>
 	);
 }

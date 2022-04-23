@@ -18,7 +18,6 @@ export const SignUpWrapper = styled.div`
 	margin: 20px auto;
 	border-radius: 20px;
 	background-color: var(--color-grey);
-	color: var(--color-primary);
 	letter-spacing: 1px;
 	@media (max-width: 768px) {
 		width: 90vw;
