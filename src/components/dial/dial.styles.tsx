@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { animated } from 'react-spring';
 
-export const DialWrapper = styled.input`
+export const DialWrapper = styled(animated.input)`
 	margin: 20px;
 	border: none;
 	font-size: 3rem;
