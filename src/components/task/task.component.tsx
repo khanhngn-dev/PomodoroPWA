@@ -26,20 +26,36 @@ export type ListProps = {
 const Task: FC<ListProps> = memo(
 	({ id, taskName, completedAt, complete, description, openDesc, onChecked, onDelete, onOpen }) => {
 		return (
-			<TaskContainer id={id}>
-				<TaskSummary onClick={(e) => onOpen(e, id)}>
-					<TaskNameContainer>{taskName}</TaskNameContainer>
+			<TaskContainer
+				className='rounded-cxl w-[92%] min-h-max text-[1.2rem] p-[10px] text-[#fff] tracking-[1px] flex justify-center items-center flex-col smooth-transition'
+				id={id}
+			>
+				<TaskSummary
+					className='flex items-center justify-around font-bold min-h-[80px] w-full hover:cursor-pointer'
+					onClick={(e) => onOpen(e, id)}
+				>
+					<TaskNameContainer className='flex-[3] text-center break-words w-[200px] md:w-[120px]'>
+						{taskName}
+					</TaskNameContainer>
 					<CheckBoxContainer
+						className='m-5 w-[9px] h-[9px] relative flex-shrink-0 hover:cursor-pointer hover:before:bg-[#c7c7c7] before:content-[""] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-[260%] before:h-[260%] before:rounded-full before:bg-[#fff] before:border-[3px] before:border-solid before:border-[#fff] smooth-transition'
 						type='checkbox'
 						checked={complete}
 						onChange={(e) => onChecked(e, id)}
 					/>
-					<TaskDateContainer>{completedAt}</TaskDateContainer>
-					<DeleteTaskContainer onClick={(e) => onDelete(e, id)}>
+					<TaskDateContainer className='flex-[2] text-center'>{completedAt}</TaskDateContainer>
+					<DeleteTaskContainer
+						className='m-[10px] flex items-center smooth-transition flex-shrink-0 hover:text-[darkred] hover:cursor-pointer s'
+						onClick={(e) => onDelete(e, id)}
+					>
 						<CrossSVG />
 					</DeleteTaskContainer>
 				</TaskSummary>
-				{openDesc && <DetailContainer>{description}</DetailContainer>}
+				{openDesc && (
+					<DetailContainer className='m-auto rounded-cxl border-[2px] border-dashed border-[#fff] w-[98%] p-5 smooth transition'>
+						{description}
+					</DetailContainer>
+				)}
 			</TaskContainer>
 		);
 	}

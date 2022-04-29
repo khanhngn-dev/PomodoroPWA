@@ -49,7 +49,7 @@ const Clock = () => {
 	};
 
 	return (
-		<ClockContainer>
+		<ClockContainer className='flex justify-center items-center w-[90vw] max-w-[500px]'>
 			<Dial
 				name='tenth-min'
 				onChange={changeHandler}
@@ -68,7 +68,14 @@ const Clock = () => {
 				disabled={isCounting}
 				type='number'
 			/>
-			<DialDivider className={`${isCounting ? 'blip' : ''}`}>:</DialDivider>
+			{/* <DialDivider className={`${isCounting ? 'blip' : ''}`}>:</DialDivider> */}
+			<DialDivider
+				className={`text-[3rem] font-bold opacity-100 smooth-transition ${
+					isCounting ? 'animate-blip' : ''
+				}`}
+			>
+				:
+			</DialDivider>
 			<Dial
 				name='tenth-sec'
 				onChange={changeHandler}

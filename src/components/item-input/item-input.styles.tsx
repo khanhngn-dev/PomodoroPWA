@@ -1,39 +1,36 @@
 import styled from 'styled-components';
 
 export const ItemInputContainer = styled.input`
-	margin: 20px;
+	/* margin: 20px;
 	border-radius: 20px;
 	padding: 16px 20px;
-	color: var(--color-primary);
 	outline: none;
-	border: 3px solid var(--color-primary);
+	border: 3px solid  ${(props) => props.theme.primary};
 	width: 90%;
 	background-color: var(--color-grey);
 	letter-spacing: 1px;
-	transition: 0.25s ease all;
-	border-color: ${(props) => props.theme.background};
-	&::placeholder {
+	transition: 0.25s ease all; */
+	color: ${(props) => props.theme.text};
+	border-color: ${(props) => props.theme.primary};
+	/* &::placeholder {
 		color: #f5f5f5b4;
-	}
+	} */
 	&:focus {
-		border-color: var(--color-secondary);
-		background-color: var(--color-lighter-grey);
-	}
-	&:focus {
-		border-color: ${(props) => props.theme.innerBack};
+		/* background-color: var(--color-lighter-grey); */
+		border-color: ${(props) => props.theme.secondary};
 	}
 `;
 
 export const ItemInputLabel = styled.label`
-	font-size: 1.5rem;
+	/* font-size: 1.5rem;
 	font-weight: bold;
-	letter-spacing: 1px;
+	letter-spacing: 1px; */
 	color: ${(props) => props.theme.text};
 `;
 
 export const ItemInputWithLabel = styled.div`
-	display: flex;
+	/* display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 100%;
+	width: 100%; */
 `;

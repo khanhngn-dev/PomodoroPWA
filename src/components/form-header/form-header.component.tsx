@@ -10,8 +10,8 @@ type FormHeaderProps = {
 };
 
 const FormHeader: FC<FormHeaderProps> = ({ title, subTitle, location, linkText }) => (
-	<FormHeaderWrapper>
-		<h1>{title}</h1>
+	<FormHeaderWrapper className='flex flex-col w-[96%] m-auto'>
+		<h1 className='text-[2rem] font-bold'>{title}</h1>
 		<span>
 			{`${subTitle} `}
 			<Link style={{ color: 'white', fontWeight: 'bold' }} to={location}>

@@ -26,7 +26,7 @@ const Dial: FC<DialProps> = ({ timerMode, value, ...others }) => {
 	});
 
 	return transition((styles, item) => (
-		<DialWrapper style={styles} value={item} type='string' {...others} />
+		<DialWrapper className='m-5 border-none text-[3rem] font-bold bg-grey w-[60px] h-[80px] text-center leading-[80px] rounded-cl smooth-transition md:m-[12px]' style={styles} value={item} type='string' {...others} />
 	));
 };
 

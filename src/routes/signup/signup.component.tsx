@@ -53,19 +53,22 @@ const SignUp = () => {
 	});
 
 	return (
-		<SignUpWrapper>
+		<SignUpWrapper className='flex flex-col w-[60vw] p-5 m-[20px_auto] rounded-cxl bg-grey tracking-[1px] md:w-[90vw] md:p-3'>
 			<FormHeader
 				title='Sign Up'
 				subTitle='Already have an account?'
 				location='/signin'
 				linkText='Sign in'
 			/>
-			<ErrorWrapper>
+			<ErrorWrapper className='w-[96%] m-[10px_auto] p-[10px_20px] text-center tracking-[1px] font-bold text-[1.2rem] text-[orange]'>
 				{formik.errors.confirmPassword
 					? formik.errors.confirmPassword
 					: error?.code.split('auth/')[1].replaceAll('-', ' ').toLocaleUpperCase()}
 			</ErrorWrapper>
-			<FormWrapper onSubmit={formik.handleSubmit}>
+			<FormWrapper
+				className='w-full m-auto mt-5 flex flex-col items-center gap-5'
+				onSubmit={formik.handleSubmit}
+			>
 				{/* <FormInputWrapper
 					required
 					label='Display Name*'

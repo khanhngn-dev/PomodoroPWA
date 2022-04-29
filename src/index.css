@@ -1,9 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
 :root {
-	--color-primary: #ff4a44;
-	--color-secondary: #ee312a;
-	--color-accent: #00a91f;
-	--color-darker-accent: #008900;
+	--color-red: #ff4a44;
+	--color-darker-red: #ee312a;
+	--color-green: #00a91f;
+	--color-darker-green: #008900;
 	--color-grey: rgb(32, 30, 30);
 	--color-lighter-grey: rgb(55, 52, 52);
 	--color-purple: #5d02c4;
@@ -12,7 +16,6 @@
 	--color-blue: #0040ff;
 	--color-darker-blue: #0045f2;
 	--color-lighter-blue: #0084ff;
-
 	font-size: 15px;
 }
 
@@ -39,4 +42,8 @@ a {
 
 ::-webkit-scrollbar {
 	display: none;
+}
+
+.smooth-transition {
+	transition: 0.25s ease all;
 }

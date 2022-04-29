@@ -30,12 +30,14 @@ const NavBar = () => {
 	const openModalHandler = () => setOpenModal(!openModal);
 
 	return (
-		<NavBarContainer>
-			<LogoContainer>
+		<NavBarContainer className='w-screen p-[20px_26px] flex justify-between items-center'>
+			<LogoContainer className='inline-block w-10 h-10 hover:cursor-pointer'>
 				<Pomologo onClick={() => navigate('/')} />
 			</LogoContainer>
-			<LinkContainer>
-				<DisplayNameWrapper>{user ? user.email : 'Guest'}</DisplayNameWrapper>
+			<LinkContainer className='flex justify-around items-center gap-5'>
+				<DisplayNameWrapper className='text-ellipsis md:max-w-[120px]'>
+					{user ? user.email : 'Guest'}
+				</DisplayNameWrapper>
 				<LogoContainer
 					onClick={openModalHandler}
 					style={{
@@ -48,7 +50,11 @@ const NavBar = () => {
 					{openModal && <Modal />}
 				</LogoContainer>
 				{user ? (
-					<LinkWrapper onClick={signOutHandler} as='span'>
+					<LinkWrapper
+						className='bg-grey rounded-xl padding-[10px_20px] tracking-[1px] font-bold smooth-transition hover:cursor-pointer hover:bg-lighter-grey'
+						onClick={signOutHandler}
+						as='span'
+					>
 						Sign out
 					</LinkWrapper>
 				) : (

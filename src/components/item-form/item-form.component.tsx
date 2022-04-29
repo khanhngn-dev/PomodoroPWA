@@ -5,7 +5,8 @@ import { useFormik } from 'formik';
 import { addItemToListAsync } from '../../store/list/list.actions';
 
 import ItemInput from '../item-input/item-input.component';
-import { FormContainer, ItemButton } from './item-form.styles';
+import { FormContainer } from './item-form.styles';
+import Button from '../button/button.component';
 import { generateTaskID } from '../../utils/reducer/list.utils/list.utils';
 
 const ItemForm: FC<FormHTMLAttributes<HTMLFormElement>> = memo(() => {
@@ -35,7 +36,7 @@ const ItemForm: FC<FormHTMLAttributes<HTMLFormElement>> = memo(() => {
 	});
 
 	return (
-		<FormContainer onSubmit={formik.handleSubmit}>
+		<FormContainer className='flex justify-center items-center flex-col m-5 p-5 rounded-cxl w-[90%] max-w-[500px] bg-grey' onSubmit={formik.handleSubmit}>
 			<ItemInput
 				required
 				name='taskName'
@@ -54,9 +55,9 @@ const ItemForm: FC<FormHTMLAttributes<HTMLFormElement>> = memo(() => {
 				placeholder='Add more features...'
 				maxLength={100}
 			/>
-			<ItemButton buttonType='submit' type='submit'>
+			<Button buttonType='submit' type='submit'>
 				Add Task
-			</ItemButton>
+			</Button>
 		</FormContainer>
 	);
 });

@@ -1,41 +1,41 @@
 export type ThemeConfig = {
 	text: string;
-	background: string;
-	innerBack: string;
-	invert: string;
-	invertBack: string;
+	primary: string;
+	secondary: string;
+	invertPrimary: string;
+	invertSecondary: string;
 };
 
 export const greenT: ThemeConfig = {
-	text: 'var(--color-accent)',
-	background: 'var(--color-accent)',
-	innerBack: 'var(--color-darker-accent)',
-	invert: 'var(--color-primary)',
-	invertBack: 'var(--color-secondary)',
+	text: 'var(--color-green)',
+	primary: 'var(--color-green)',
+	secondary: 'var(--color-darker-green)',
+	invertPrimary: 'var(--color-red)',
+	invertSecondary: 'var(--color-darker-red)',
 };
 
 export const redT: ThemeConfig = {
-	text: 'var(--color-secondary)',
-	background: 'var(--color-primary)',
-	innerBack: 'var(--color-secondary)',
-	invert: 'var(--color-accent)',
-	invertBack: 'var(--color-darker-accent)',
+	text: 'var(--color-darker-red)',
+	primary: 'var(--color-red)',
+	secondary: 'var(--color-darker-red)',
+	invertPrimary: 'var(--color-green)',
+	invertSecondary: 'var(--color-darker-green)',
 };
 
 export const purpleT: ThemeConfig = {
 	text: 'var(--color-lighter-purple)',
-	background: 'var(--color-lighter-purple)',
-	innerBack: 'var(--color-purple)',
-	invert: 'var(--color-blue)',
-	invertBack: 'var(--color-darker-blue)',
+	primary: 'var(--color-lighter-purple)',
+	secondary: 'var(--color-purple)',
+	invertPrimary: 'var(--color-blue)',
+	invertSecondary: 'var(--color-darker-blue)',
 };
 
 export const blueT: ThemeConfig = {
 	text: 'var(--color-lighter-blue)',
-	background: 'var(--color-lighter-blue)',
-	innerBack: 'var(--color-blue)',
-	invert: 'var(--color-purple)',
-	invertBack: 'var(--color-darker-purple)',
+	primary: 'var(--color-lighter-blue)',
+	secondary: 'var(--color-blue)',
+	invertPrimary: 'var(--color-purple)',
+	invertSecondary: 'var(--color-darker-purple)',
 };
 
 export const rgT = [redT, greenT];

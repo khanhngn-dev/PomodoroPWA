@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const FilterToggleWrapper = styled.input`
-	width: 30%;
-	height: 50px;
+	/* width: 30%;
+	height: 50px; */
 	&:hover {
 		cursor: pointer;
 		&::before {
@@ -12,7 +12,7 @@ export const FilterToggleWrapper = styled.input`
 `;
 
 export const FilterLabel = styled.label`
-	font-size: 1.1rem;
+	/* font-size: 1.1rem;
 	font-weight: bold;
 	position: absolute;
 	text-align: center;
@@ -23,7 +23,7 @@ export const FilterLabel = styled.label`
 	transform: translate(-50%, -50%);
 	border-radius: 10px;
 	border: 3px solid white;
-	background-color: white;
+	background-color: white; */
 	&:hover {
 		cursor: pointer;
 		background-color: #d7d7d7;
@@ -31,19 +31,19 @@ export const FilterLabel = styled.label`
 `;
 
 export const FilterWithLabel = styled.div`
-	position: relative;
+	/* position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 30%;
+	width: 30%; */
 	input:checked ~ label {
 		color: white;
-		background-color: ${(props) => props.theme.innerBack};
+		background-color: ${(props) => props.theme.secondary};
 		&:hover {
-			background-color: ${(props) => props.theme.background};
+			background-color: ${(props) => props.theme.primary};
 		}
 	}
 	label:hover {
-		border-color: ${(props) => props.theme.innerBack};
+		border-color: ${(props) => props.theme.secondary};
 	}
 `;

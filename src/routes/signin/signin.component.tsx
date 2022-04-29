@@ -25,17 +25,20 @@ const SignIn = () => {
 	});
 
 	return (
-		<SignInWrapper>
+		<SignInWrapper className='flex flex-col w-[60vw] p-5 m-[20px_auto] rounded-cxl bg-grey tracking-[1px] md:w-[90vw] md:p-3'>
 			<FormHeader
 				title='Sign In'
 				subTitle="Don't have an account?"
 				location='/signup'
 				linkText='Create one'
 			/>
-			<ErrorWrapper>
+			<ErrorWrapper className='w-[96%] m-[10px_auto] p-[10px_20px] text-center tracking-[1px] font-bold text-[1.2rem] text-[orange]'>
 				{error?.code.split('auth/')[1].replaceAll('-', ' ').toLocaleUpperCase()}
 			</ErrorWrapper>
-			<FormWrapper onSubmit={formik.handleSubmit}>
+			<FormWrapper
+				className='w-full m-auto mt-[40px] flex flex-col items-center gap-5'
+				onSubmit={formik.handleSubmit}
+			>
 				<FormInputWrapper
 					label='Email*'
 					required

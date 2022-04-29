@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 
 export const FormWrapper = styled.form`
-	width: 100%;
+	/* width: 100%;
 	margin: auto;
 	margin-top: 20px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 20px;
+	gap: 20px; */
 `;
 
 export const SignUpWrapper = styled.div`
-	display: flex;
+	/* display: flex;
 	flex-direction: column;
 	width: 60vw;
 	padding: 20px;
@@ -22,16 +22,16 @@ export const SignUpWrapper = styled.div`
 	@media (max-width: 768px) {
 		width: 90vw;
 		padding: 12px;
-	}
+	} */
 `;
 
 export const ErrorWrapper = styled.div`
-	width: 96%;
+	/* width: 96%;
 	margin: 10px auto;
 	padding: 10px 20px;
 	text-align: center;
 	letter-spacing: 1px;
 	font-weight: bold;
 	font-size: 1.2rem;
-	color: orange;
+	color: orange; */
 `;

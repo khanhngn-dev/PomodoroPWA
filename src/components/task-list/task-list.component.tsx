@@ -61,8 +61,8 @@ const TaskList = memo(() => {
 	};
 
 	return (
-		<TaskListContainer>
-			<FilterContainer>
+		<TaskListContainer className='relative flex flex-col items-center bg-grey rounded-cxl m-5 pb-5 max-h-[650px] w-[90%] max-w-[500px]'>
+			<FilterContainer className='flex bg-grey flex-nowrap justify-between items-center w-[92%] m-[20px_auto]'>
 				<FilterToggle
 					label='All'
 					type='radio'
@@ -87,7 +87,7 @@ const TaskList = memo(() => {
 				/>
 			</FilterContainer>
 			{filteredList?.length ? (
-				<TaskListWrapper>
+				<TaskListWrapper className='flex flex-col items-center gap-5 overflow-auto w-full'>
 					{filteredList.map((item) => (
 						<Task
 							key={item.id}
@@ -99,7 +99,7 @@ const TaskList = memo(() => {
 					))}
 				</TaskListWrapper>
 			) : (
-				<EmptyTaskListPlaceHolder>
+				<EmptyTaskListPlaceHolder className='m-auto text-[2rem] font-bold text-center'>
 					{filter !== 'All' ? 'Change filter modes' : 'Add some task'}
 				</EmptyTaskListPlaceHolder>
 			)}

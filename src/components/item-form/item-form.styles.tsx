@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import Button from '../button/button.component';
+// import Button from '../button/button.component';
 
 export const FormContainer = styled.form`
-	display: flex;
+	/* display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
@@ -11,17 +11,9 @@ export const FormContainer = styled.form`
 	border-radius: 20px;
 	width: 90%;
 	max-width: 500px;
-	background-color: var(--color-grey);
+	background-color: var(--color-grey); */
 `;
 
-export const InputContainer = styled.div`
-	width: 500px;
-	background-color: var(--color-grey);
-	padding: 20px;
-	border-radius: 20px;
-	margin-bottom: 20px;
-`;
-
-export const ItemButton = styled(Button)`
-	width: 90%;
-`;
+// export const ItemButton = styled(Button)`
+// 	width: 90%;
+// `;

@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
 export const ButtonContainer = styled.div`
-	display: flex;
+	/* display: flex;
 	flex-wrap: nowrap;
 	justify-content: center;
 	align-items: center;
 	width: 90vw;
-	max-width: 500px;
+	max-width: 500px; */
 `;
 
 export const HomeContainer = styled.div`
-	position: relative;
+	/* position: relative;
 	margin: auto;
 	display: flex;
 	flex-direction: column;
@@ -18,6 +18,5 @@ export const HomeContainer = styled.div`
 	align-items: center;
 	justify-content: center;
 	border-radius: 20px;
-	width: min-content;
-	width: 100vw;
+	width: 100vw; */
 `;

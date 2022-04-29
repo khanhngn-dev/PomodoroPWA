@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { animated } from 'react-spring';
 
 export const DialWrapper = styled(animated.input)`
-	margin: 20px;
+	/* margin: 20px;
 	border: none;
 	font-size: 3rem;
 	font-weight: bold;
@@ -12,7 +12,7 @@ export const DialWrapper = styled(animated.input)`
 	text-align: center;
 	line-height: 80px;
 	border-radius: 10px;
-	transition: 0.25s ease all;
+	transition: 0.25s ease all; */
 	::-webkit-outer-spin-button,
 	::-webkit-inner-spin-button {
 		-webkit-appearance: none;
@@ -21,7 +21,7 @@ export const DialWrapper = styled(animated.input)`
 	[type='number'] {
 		-moz-appearance: textfield;
 	}
-	@media (max-width: 768px) {
+	/* @media (max-width: 768px) {
 		margin: 12px;
-	}
+	} */
 `;

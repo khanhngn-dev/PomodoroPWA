@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const FormHeaderWrapper = styled.div`
-	display: flex;
+	/* display: flex;
 	flex-direction: column;
 	width: 96%;
-	margin: auto;
+	margin: auto; */
 	color: ${(props) => props.theme.text};
 `;
