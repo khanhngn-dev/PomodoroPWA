@@ -45,7 +45,7 @@ const TaskList = memo(() => {
 
 	useEffect(() => {
 		setFilteredList(filterList(filter, listItems));
-	}, [listItems]);
+	}, [listItems]); // eslint-disable-line
 
 	const onCheckedHandler = (event: ChangeEvent<HTMLInputElement>, id: string) => {
 		dispatch(setCompleteItemAsync(checkItem(listItems, id), id));
