@@ -20,7 +20,7 @@ const Modal = memo(() => {
 	};
 
 	return (
-		<ModalContainer className='absolute top-[50px] left-1/2 translate-x-[-40%] flex flex-col w-[200px] p-[10px] rounded-cxl gap-5 z-[1]'>
+		<ModalContainer className='absolute top-[50px] left-1/2 translate-x-[-50%] flex flex-col w-[200px] p-[10px] rounded-cxl gap-5 z-[1]'>
 			<Button
 				style={{
 					margin: 0,

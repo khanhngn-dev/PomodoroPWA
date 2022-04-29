@@ -35,30 +35,31 @@ const NavBar = () => {
 				<Pomologo onClick={() => navigate('/')} />
 			</LogoContainer>
 			<LinkContainer className='flex justify-around items-center gap-5'>
-				<DisplayNameWrapper className='text-ellipsis md:max-w-[120px]'>
+				<DisplayNameWrapper className='overflow-hidden text-ellipsis md:max-w-[100px]'>
 					{user ? user.email : 'Guest'}
 				</DisplayNameWrapper>
 				<LogoContainer
+					className='inline-block hover:cursor-pointer w-[25px] h-[25px] relative'
 					onClick={openModalHandler}
-					style={{
-						width: '25px',
-						height: '25px',
-						position: 'relative',
-					}}
 				>
 					<GearIcon />
 					{openModal && <Modal />}
 				</LogoContainer>
 				{user ? (
 					<LinkWrapper
-						className='bg-grey rounded-xl padding-[10px_20px] tracking-[1px] font-bold smooth-transition hover:cursor-pointer hover:bg-lighter-grey'
+						className='bg-grey rounded-xl p-[10px_20px] tracking-[1px] font-bold smooth-transition hover:cursor-pointer hover:bg-lighter-grey'
 						onClick={signOutHandler}
 						as='span'
 					>
 						Sign out
 					</LinkWrapper>
 				) : (
-					<LinkWrapper to='/signin'>Sign in</LinkWrapper>
+					<LinkWrapper
+						className='bg-grey rounded-xl p-[10px_20px] tracking-[1px] font-bold smooth-transition hover:cursor-pointer hover:bg-lighter-grey'
+						to='/signin'
+					>
+						Sign in
+					</LinkWrapper>
 				)}
 			</LinkContainer>
 		</NavBarContainer>
