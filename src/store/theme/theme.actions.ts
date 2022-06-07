@@ -13,6 +13,7 @@ export const setCurrentTheme = withMatcher(
 export const fetchThemeSettingAsync =
 	(user: User | null) => async (dispatch: any, getState: any) => {
 		const themeSetting = await fetchThemeSetting(user);
+		console.log(themeSetting);
 		if (!themeSetting) return;
 		const { themes } = themeSetting;
 		dispatch(setCurrentTheme(themes));
