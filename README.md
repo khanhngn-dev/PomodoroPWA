@@ -11,5 +11,5 @@ A Pomodoro clock with task list. Built using React with Typescript, Redux, React
 - Has support for PWA.
 
 ## Upcoming changes
-- Allow user to configure their own themese.
+- Allow user to configure their own theme.
 - Add support for music and background ambience.
